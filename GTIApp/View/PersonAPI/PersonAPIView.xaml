@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="MainPersonAPIPage"
+             x:Class="GTIApp.View.PersonAPIView">
+    <StackLayout>
+        <!--Contenedor de la imagen-->
+        <StackLayout Padding="30" 
+                     Spacing="2" 
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Cédula" 
+                   TextColor="#555" 
+                   FontSize="20" 
+                   FontAttributes="Bold"/>
+            <Entry  Text="{Binding Cedula}" 
+                    Keyboard="Numeric" 
+                    Placeholder="Ejm:504090261" 
+                    PlaceholderColor="#CCC" 
+                    FontSize="20" 
+                    TextColor="#555"                    
+                    x:Name="hola"/>
+            <Button         Text="Buscar"
+                            TextColor="White"
+                            FontSize="Small"                           
+                            CornerRadius="30"                            
+                            HorizontalOptions="End"
+                            BackgroundColor="#4590e6"                            
+                            Command="{Binding Path=BindingContext.EnterSearchNewPersonCommand, Source={x:Reference MainPersonAPIPage}}"/>
+        </StackLayout>
+
+        <!--Contenedor de la lista-->
+        <StackLayout Orientation="Horizontal">
+            <ListView ItemsSource="{Binding lstPersonAPIPerson}"
+                          IsPullToRefreshEnabled="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Text="{Binding Cedula}"
+                                   Detail="{Binding Fullname}"                                                                    
+                                   TextColor="#4590e6"
+                                   DetailColor="Gray">
+                            <ImageCell.ContextActions>
+                                <MenuItem 
+                                        Text="Eliminar"
+                                        IsDestructive="True"                                        
+                                        Command="{Binding Path=BindingContext.DeletePersonAPICommand, Source={x:Reference MainPersonAPIPage}}"
+                                        CommandParameter="{Binding Id}">
+                                </MenuItem>
+                                <MenuItem 
+                                        Text="Agregar"
+                                        IsDestructive="True"
+                                        Command="{Binding Path=BindingContext.EnterAddPersonAPICommand, Source={x:Reference MainPersonAPIPage}}">
+                                </MenuItem>
+                            </ImageCell.ContextActions>
+                        </ImageCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
+            <Button     Text="+"
+                            TextColor="White"
+                            FontSize="Large"
+                            WidthRequest      ="60"
+                            HeightRequest     ="60"
+                            CornerRadius      ="30"                                
+                            HorizontalOptions ="End"
+                            BackgroundColor="#4590e6" 
+                            VerticalOptions="End" 
+                            Margin="0,0,20,22"
+                            Command="{Binding Path=BindingContext.EnterAddNewPersonCommand, Source={x:Reference MainPersonAPIPage}}"/>
+        </StackLayout>-->
+
+    </StackLayout>
+
+</ContentPage>

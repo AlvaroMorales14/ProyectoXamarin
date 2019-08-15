@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GTIApp.View.LoginView">
+    <!--<StackLayout HorizontalOptions="Fill"
+                 VerticalOptions="Center">
+        
+        <StackLayout Padding="50,0"
+                     Spacing="20">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="INICIAR SESIÓN"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="User:"
+                       HorizontalOptions="Start"/>
+                <Entry Text="{Binding User}"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Password:"
+                       HorizontalOptions="Start"/>
+                <Entry Text="{Binding Pass}"
+                       Keyboard="Numeric"
+                       HorizontalOptions="FillAndExpand"
+                       IsPassword="true"/>
+            </StackLayout>
+            
+            <StackLayout Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+              <Button Text="LOGIN"                      
+                      WidthRequest="30" 
+                      HeightRequest="50"
+                      BorderRadius="17"
+                      BorderWidth="1"
+                      TextColor="White" 
+                      BackgroundColor="Blue"                      
+                      Command="{Binding LoginCommand}"/>
+            </StackLayout>
+        </StackLayout>   
+    </StackLayout>-->
+    <Grid>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label Text="Nombre de usuario" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding User}" FontSize="20" TextColor="#555" />
+                    <Label Text="Contraseña" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding Pass}"  Keyboard="Default" IsPassword="True" FontSize="20" TextColor="#555" />
+                    <StackLayout Orientation="Horizontal">
+                    <Label 
+                           Text="Recuerdame" 
+                           TextColor="#555" 
+                           FontSize="20" FontAttributes="Bold"/>
+                    <CheckBox Color="#4590e6" HorizontalOptions="FillAndExpand" IsChecked="{Binding cboRecuerdame}"></CheckBox>
+                </StackLayout>
+            </StackLayout>
+                <StackLayout Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Button x:Name="BtnLogin" Command="{Binding LoginCommand}" Text="Iniciar sesión" BorderColor="#CB9600" BackgroundColor="#4590e6" TextColor="White"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <!--<AbsoluteLayout VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding Runing}">
+            <ActivityIndicator
+                           Color="#4590e6"
+                           BackgroundColor="#4590e6"
+                           IsRunning="{Binding Runing}"/>
+            <Label IsVisible="{Binding Runing}">Cargando...</Label>
+        </AbsoluteLayout>-->
+        <ActivityIndicator IsRunning="true" />
+    </Grid>
+</ContentPage>
+

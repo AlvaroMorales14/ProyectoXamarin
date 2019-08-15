@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GTIApp.View.FormPersonView">
+    <Grid>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label Text="Nombre : "
+                           VerticalOptions="Center"
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                    <Entry Placeholder="Ingrese su nombre"
+                           PlaceholderColor="#CCC" 
+                           FontSize="20" 
+                           TextColor="#555" 
+                           VerticalOptions="CenterAndExpand"
+                   Text="{Binding CurrentPerson.Nombre}" />
+                    <!--</StackLayout>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="0,1,0,1">-->
+                    <Label Text="Apellido : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Entry Placeholder="Ingrese su apellido"
+                           PlaceholderColor="#CCC" 
+                           FontSize="20" 
+                           TextColor="#555"
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding CurrentPerson.Apellido}" />
+                    <!--</StackLayout>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="0,1,0,1">-->
+                    <Label Text="Edad : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Entry Placeholder="Ingrese su edad"
+                           PlaceholderColor="#CCC" 
+                           FontSize="20" 
+                           TextColor="#555"
+                           Keyboard="Numeric"
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding CurrentPerson.Edad}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                    <Button Text="Ok" 
+                            TextColor="White"
+                            FontSize="Large"
+                            WidthRequest      ="60"
+                            HeightRequest     ="60"
+                            CornerRadius      ="30"                                
+                            HorizontalOptions ="End"
+                            BackgroundColor="#4590e6" 
+                            VerticalOptions="End"
+                            Margin="0,0,20,22"
+                    Command="{Binding AddNewPersonCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

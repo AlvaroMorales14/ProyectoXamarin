@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="MainPersonPage"
+             x:Class="GTIApp.View.MainPersonView">
+
+        <StackLayout>
+            <!--Contenedor de la imagen-->
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image Source="https://image.flaticon.com/icons/svg/283/283516.svg"/>
+            </StackLayout>
+
+            <!--Contenedor de la lista-->
+            <StackLayout Orientation="Horizontal">
+                <ListView ItemsSource="{Binding lstPerson}"
+                          IsPullToRefreshEnabled="true">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ImageCell Text="{Binding Nombre}"
+                                   Detail="{Binding Apellido}"                                   
+                                   ImageSource="{Binding Foto}"
+                                   TextColor="#4590e6"
+                                   DetailColor="Gray">
+                                <ImageCell.ContextActions>
+                                    <MenuItem 
+                                        Text="Eliminar"
+                                        IsDestructive="True"                                        
+                                        Command="{Binding Path=BindingContext.DeletePersonCommand, Source={x:Reference MainPersonPage}}"
+                                        CommandParameter="{Binding Id}">
+                                    </MenuItem>
+                                    <MenuItem 
+                                        Text="Editar"
+                                        IsDestructive="True"
+                                        Command="{Binding Path=BindingContext.EditPersonCommand, Source={x:Reference MainPersonPage}}"
+                                        CommandParameter="{Binding Id}">
+                                    </MenuItem>
+                                </ImageCell.ContextActions>
+                            </ImageCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                <Button     Text="+"
+                            TextColor="White"
+                            FontSize="Large"
+                            WidthRequest      ="60"
+                            HeightRequest     ="60"
+                            CornerRadius      ="30"                                
+                            HorizontalOptions ="End"
+                            BackgroundColor="#4590e6" 
+                            VerticalOptions="End" 
+                            Margin="0,0,20,22"
+                            Command="{Binding Path=BindingContext.EnterAddNewPersonCommand, Source={x:Reference MainPersonPage}}"/>
+            </StackLayout>
+
+        </StackLayout>
+</ContentPage>

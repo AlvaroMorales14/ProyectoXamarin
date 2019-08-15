@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GTIApp.View.MenuView"
+             x:Name="MenuPage"
+             Title="GTI APP">
+    <StackLayout>
+        <!--Image Container-->
+        <StackLayout>
+            <Image HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Margin="0,10,0,0"
+                   Source="https://www.krama.es/cmsfiles/image_59_xamarin_logo_3469986972739708859.png"/>
+        </StackLayout>
+        <!--Listview Container-->
+        <StackLayout Margin="0,30">
+            <ListView ItemsSource="{Binding lstMenu}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Text="{Binding Name}"                                    
+                                   Detail="{Binding Detail}"
+                                   ImageSource="{Binding Icon}"
+                                   Command="{Binding Path=BindingContext.EnterMenuOptionCommand, Source={x:Reference MenuPage}}"
+                                   CommandParameter="{Binding Id}"
+                                   TextColor="#4590e6"
+                                   DetailColor="Gray"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

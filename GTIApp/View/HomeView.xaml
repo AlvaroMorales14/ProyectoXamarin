@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="GTIApp.View.HomeView"
+             x:Name="PersonAPIStorage">
+    <StackLayout VerticalOptions="Center" 
+                HorizontalOptions="Center">
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="C O N T A C T O S"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="{Binding CantidadElementos}"/>
+        </StackLayout>
+        <!--Contenedor de la lista-->
+        <StackLayout Orientation="Horizontal">
+            <ListView     ItemsSource="{Binding lstPersonsAPIStorage}"
+                          IsPullToRefreshEnabled="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell Text="{Binding Cedula}"
+                                   Detail="{Binding Fullname}"                                                                   
+                                   TextColor="#4590e6"
+                                   DetailColor="Gray">
+                            <ImageCell.ContextActions>
+                                <MenuItem 
+                                        Text="Eliminar"
+                                        IsDestructive="True"                                        
+                                        Command="{Binding Path=BindingContext.DeletePersonAPIStorageCommand, Source={x:Reference PersonAPIStorage}}"
+                                        CommandParameter="{Binding Cedula}"/>
+
+                                <MenuItem 
+                                        Text="Editar"
+                                        IsDestructive="True"
+                                        Command="{Binding Path=BindingContext.EnterEditPersonAPIStorageCommand, Source={x:Reference PersonAPIStorage}}"
+                                        CommandParameter="{Binding Cedula}"
+                                        />
+
+                            </ImageCell.ContextActions>
+                        </ImageCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
