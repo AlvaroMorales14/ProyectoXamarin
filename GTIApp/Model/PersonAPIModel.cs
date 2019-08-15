@@ -9,7 +9,7 @@ namespace GTIApp.Model
 {
     public class PersonAPIModel
     {
-        https://github.com/AlvaroMorales14/ProyectoXamarin.git
+        public string query { get; set; }
         public string license { get; set; }
         public string database_date { get; set; }
         public int resultcount { get; set; }
