@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              x:Class="GTIApp.View.TabbedPageHomeView">
     <TabbedPage.Children>
-        <pages:Page1View/>
+        <pages:MapGoogleView/>
         <pages:Page2View/>
         <pages:Page3View/>
     </TabbedPage.Children>
