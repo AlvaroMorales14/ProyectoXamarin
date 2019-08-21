@@ -7,6 +7,9 @@
              mc:Ignorable="d"
              x:Class="GTIApp.View.MapGoogleView">
     <StackLayout>
-        <maps:Map x:Name="MapView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+        <maps:Map>
+            
+            
+        </maps:Map>
     </StackLayout>
 </ContentPage>
