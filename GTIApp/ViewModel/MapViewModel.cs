@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GTIApp.ViewModel
 {
-    public class MapViewModel
+    public class MapViewModel : INotifyPropertyChanged
     {
 
         private ObservableCollection<LocationModel> _lstPins = new ObservableCollection<LocationModel>();
