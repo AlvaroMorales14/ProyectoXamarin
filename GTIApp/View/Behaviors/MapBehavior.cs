@@ -10,74 +10,61 @@ namespace GTIApp.View.Behaviors
 {
     public class MapBehavior : BindableBehavior<Map>
     {
-        private Map _map;
-        //se le pone ItemSourseProperty, no es el item sourse de una lista
-        public static readonly BindableProperty ItemsSourseProperty = BindableProperty.CreateAttached("ItemsSourse", typeof(IEnumerable<LocationModel>),
-            typeof(MapBehavior), default(IEnumerable<LocationModel>), BindingMode.Default, null, OnItemsSourseChange);
+        public static readonly BindableProperty ItemsSourceProperty =
+            BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable<LocationModel>), typeof(MapBehavior), null, BindingMode.Default, propertyChanged: ItemsSourceChanged);
 
-        public IEnumerable<LocationModel> ItemsSourse
+        public IEnumerable<LocationModel> ItemsSource
         {
-            get {
-                return (IEnumerable<LocationModel>)GetValue(ItemsSourseProperty);
-                }
-            set {
-                SetValue(ItemsSourseProperty, value);
-                }
-        }
-        private static void OnItemsSourseChange(BindableObject view, object oldvalue, object newvalue)
-        {
-            var mapBehavior = view as MapBehavior;
-            if (mapBehavior != null)
-            {
-                //para evitar que se distorcione el mapa
-                mapBehavior.AddPins();
-                mapBehavior.PositionMap();
-            }
-
-            
+            get => (IEnumerable<LocationModel>)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
-        protected override void OnDetachingFrom(Map view)
+        private static void ItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            base.OnDetachingFrom(view);
-            _map = null;
-        }
-
-        protected override void OnAttachedTo(Map visualElement)
-        {
-            base.OnDetachingFrom(visualElement);
-            _map = visualElement;
+            if (!(bindable is MapBehavior behavior)) return;
+            behavior.AddPins();
+            behavior.PositionMap();
         }
 
         private void AddPins()
         {
-            for (int i = _map.Pins.Count-1; i >= 0; i--)
+            var map = AssociatedObject;
+            for (int i = map.Pins.Count - 1; i >= 0; i--)
             {
-                _map.Pins.RemoveAt(i);
+                map.Pins[i].Clicked -= PinOnClicked;
+                map.Pins.RemoveAt(i);
             }
-            var pins = ItemsSourse.Select(x =>
+
+            var pins = ItemsSource.Select(x =>
             {
                 var pin = new Pin
                 {
-                    Type = PinType.SearchResult,
+                    Type = PinType.Place,
                     Position = new Position(x.latitud, x.longitud),
                     Label = x.descripcion
                 };
+
+                pin.Clicked += PinOnClicked;
                 return pin;
-
             }).ToArray();
-
             foreach (var pin in pins)
-            {
-                _map.Pins.Add(pin);
-            }
+                map.Pins.Add(pin);
         }
 
+        private void PinOnClicked(object sender, EventArgs eventArgs)
+        {
+            var pin = sender as Pin;
+            if (pin == null) return;
+            var viewModel = ItemsSource.FirstOrDefault(x => x.descripcion == pin.Label);
+            if (viewModel == null) return;
+            //viewModel.Command.Execute(null); // TODO We are going to implement this later ;)
+        }
         private void PositionMap()
         {
-            if (ItemsSourse == null || !ItemsSourse.Any()) return;
+            var _map = AssociatedObject;
+            if (ItemsSource == null || !ItemsSource.Any()) return;
 
-            var centerPosition = new Position(ItemsSourse.Average(x => x.latitud), ItemsSourse.Average(x => x.longitud));
+            var centerPosition = new Position(ItemsSource.Average(x => x.latitud), ItemsSource.Average(x => x.longitud));
             var distance = 2.5;
             _map.MoveToRegion(MapSpan.FromCenterAndRadius(centerPosition,Distance.FromMiles(distance)));
 
@@ -87,6 +74,7 @@ namespace GTIApp.View.Behaviors
                  return false; 
              });
         }
+      
 
     }
     

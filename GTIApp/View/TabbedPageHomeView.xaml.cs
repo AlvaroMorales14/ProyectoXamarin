@@ -16,7 +16,7 @@ namespace GTIApp.View
         public TabbedPageHomeView()
         {
             InitializeComponent();
-            /*BindingContext = HomeViewModel.GetInstance();*/
+            
         }
     }
 }

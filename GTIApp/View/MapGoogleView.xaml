@@ -8,10 +8,9 @@
              mc:Ignorable="d"
              x:Class="GTIApp.View.MapGoogleView">
     <StackLayout>
-        <maps:Map x:Name="MyMap">
+        <maps:Map x:Name="MapView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <maps:Map.Behaviors>
-                <behaviors:MapBehavior
-                    ItemsSourse="{Binding lstPins}"/>
+                <behaviors:MapBehavior ItemsSource="{Binding lstPins}"></behaviors:MapBehavior>
             </maps:Map.Behaviors>
         </maps:Map>
     </StackLayout>

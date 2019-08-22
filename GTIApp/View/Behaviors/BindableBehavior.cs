@@ -7,16 +7,18 @@ namespace GTIApp.View.Behaviors
 {
     public class BindableBehavior<T> : Behavior<T> where T : BindableObject
     {
-        //Behaviors significa comportamientos.
-        public T AssociatedObject { get; set; }
+        public T AssociatedObject { get; private set; }
+
         protected override void OnAttachedTo(T visualElement)
         {
-            // la T indica cualquier cosa, mientras sea un bindable object
             base.OnAttachedTo(visualElement);
+
             AssociatedObject = visualElement;
-            if (visualElement.BindingContext != null)            
+
+            if (visualElement.BindingContext != null)
                 BindingContext = visualElement.BindingContext;
-                visualElement.BindingContextChanged += OnBindingContextChanged;            
+
+            visualElement.BindingContextChanged += OnBindingContextChanged;
         }
 
         private void OnBindingContextChanged(object sender, EventArgs e)

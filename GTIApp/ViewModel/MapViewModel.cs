@@ -25,11 +25,18 @@ namespace GTIApp.ViewModel
         }
 
         public MapViewModel() {
+            Init();
+        }
 
-            new LocationModel { latitud = 10.430956, longitud = -85.0966837, descripcion = "Primer Pin" };
-            new LocationModel { latitud = 10.4307811, longitud = -85.1013109, descripcion = "Segundo Pin" };
-                
-                       
+
+        public void Init()
+        {
+            lstPins = new ObservableCollection<LocationModel>()
+            {
+                new LocationModel{ latitud=9.966910,longitud=-84.050057,descripcion="Casa Moravia"},
+                new LocationModel{ latitud=9.9183035,longitud=-84.0399479,descripcion="GTI"}/*,
+                new LocationModel{ latitud=10.3536852,longitud=-85.0792742,descripcion="San Miguel de Cañas"}*/
+            };
         }
 
         #region INotifyPropertyChanged Implementation
