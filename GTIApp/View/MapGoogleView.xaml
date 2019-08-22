@@ -4,12 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:behaviors="clr-namespace:GTIApp.View.Behaviors"
              mc:Ignorable="d"
              x:Class="GTIApp.View.MapGoogleView">
     <StackLayout>
-        <maps:Map>
-            
-            
+        <maps:Map x:Name="MyMap">
+            <maps:Map.Behaviors>
+                <behaviors:MapBehavior
+                    ItemsSourse="{Binding lstPins}"/>
+            </maps:Map.Behaviors>
         </maps:Map>
     </StackLayout>
 </ContentPage>

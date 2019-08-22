@@ -137,4 +137,7 @@
       <Name>GTIApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\accent.jpg" />
+  </ItemGroup>
 </Project>
