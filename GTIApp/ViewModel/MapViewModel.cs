@@ -9,7 +9,7 @@ namespace GTIApp.ViewModel
 {
     public class MapViewModel : INotifyPropertyChanged
     {
-
+        #region Properties
         private ObservableCollection<LocationModel> _lstPins = new ObservableCollection<LocationModel>();
         public ObservableCollection<LocationModel> lstPins {
             get
@@ -23,7 +23,9 @@ namespace GTIApp.ViewModel
             }
 
         }
+        #endregion
 
+        #region Methods
         public MapViewModel() {
             Init();
         }
@@ -38,6 +40,7 @@ namespace GTIApp.ViewModel
                 new LocationModel{ latitud=10.3536852,longitud=-85.0792742,descripcion="San Miguel de Cañas"}*/
             };
         }
+        #endregion
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;

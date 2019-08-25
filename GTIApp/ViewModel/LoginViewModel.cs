@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using GTIApp.Model;
 using GTIApp.View;
+using Realms;
 using Xamarin.Forms;
 
 namespace GTIApp.ViewModel
@@ -95,11 +97,17 @@ namespace GTIApp.ViewModel
 
         public async void Login()
         {
-            if (User == "alvaro" && Pass == "123")
+            /*Register();*/
+
+            var realmDB = Realm.GetInstance();
+            var elUsuarioSeleccionado = realmDB.All<UserModel>().First(b => b.Name == User);
+            using (var db = realmDB.BeginWrite())
+          
+            if (User == elUsuarioSeleccionado.Name && Pass == elUsuarioSeleccionado.Pass)
             {
-                this.Runing = true;
-                /*System.Threading.Thread.Sleep(3000);*/
-                NavigationPage navigation = new NavigationPage(new HomeView());
+                /*this.Runing = true;
+                System.Threading.Thread.Sleep(3000);*/
+            NavigationPage navigation = new NavigationPage(new HomeView());
 
                 App.Current.MainPage = new MasterDetailPage
                 {
@@ -118,7 +126,32 @@ namespace GTIApp.ViewModel
             }
 
         } 
+        public async void Register()
+        {
+            //using realm
 
+            var realmDB = Realm.GetInstance();
+            var elUsuario = realmDB.All<UserModel>().ToList();
+            var elIdDelUltimoUsuarioInsertado = 0;
+            if (elUsuario.Count != 0)
+            {
+                elIdDelUltimoUsuarioInsertado = elUsuario.Max(s => s.Id);
+            }
+            UserModel elNuevoUsuario = new UserModel()
+            {
+                Id = elIdDelUltimoUsuarioInsertado + 1,
+                Name = "alvaro",
+                Pass = "123"
+            };
+            realmDB.Write(() =>
+            {
+                realmDB.Add(elNuevoUsuario);
+            });
+            /*txtStudentName.Text = string.Empty;
+            List<Student> studentList = realmDB.All<Student>().ToList();
+            listStudent.ItemsSource = studentList;*/
+
+        }
         public LoginViewModel()
         {            
             User = "alvaro";
