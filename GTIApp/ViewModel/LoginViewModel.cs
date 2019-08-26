@@ -97,35 +97,58 @@ namespace GTIApp.ViewModel
 
         public async void Login()
         {
-            /*Register();*/
-
             var realmDB = Realm.GetInstance();
-            var elUsuarioSeleccionado = realmDB.All<UserModel>().First(b => b.Name == User);
-            using (var db = realmDB.BeginWrite())
-          
-            if (User == elUsuarioSeleccionado.Name && Pass == elUsuarioSeleccionado.Pass)
-            {
-                /*this.Runing = true;
-                System.Threading.Thread.Sleep(3000);*/
-            NavigationPage navigation = new NavigationPage(new HomeView());
+            var elNuevoUsuario = realmDB.All<UserModel>().First(b => b.Name == User);
 
-                App.Current.MainPage = new MasterDetailPage
+            if (User!=null)
+            {                
+                if (User == elNuevoUsuario.Name && Pass == elNuevoUsuario.Pass)
                 {
-                    Master = new MenuView(),
-                    Detail = navigation
-                };
-                this.Runing = false;
+                    /*this.Runing = true;
+                    System.Threading.Thread.Sleep(3000);*/
+                    NavigationPage navigation = new NavigationPage(new HomeView());
 
+                    App.Current.MainPage = new MasterDetailPage
+                    {
+                        Master = new MenuView(),
+                        Detail = navigation
+                    };
+                    /*this.Runing = false;*/
+
+                    if (cboRecuerdame)
+                    {
+                        if (elNuevoUsuario != null)
+                        {
+                            Settings.UserName = elNuevoUsuario.Name.ToString();
+                            Settings.RememberMe = cboRecuerdame.ToString();
+                        }                        
+                    }
+                    else
+                    {
+                        Settings.UserName = string.Empty;
+                        Settings.RememberMe = "false";
+                    }
+                }
+                else
+                {
+                    message.Title = "Error";
+                    message.Message = "Credenciales incorrectas";
+                    message.Cancel = "Aceptar";
+                    message.MostrarMensaje(message);
+                }
             }
             else
             {
                 message.Title = "Error";
-                message.Message = "Credenciales incorrectas";
                 message.Cancel = "Aceptar";
-                message.MostrarMensaje(message);                
+                message.Message = "Nombre de usuario inválido";
+                if (Pass==null || Pass.Equals(""))
+                {
+                    message.Message = "Clave inválida";
+                }
+                 message.MostrarMensaje(message);
             }
-
-        } 
+        }
         public async void Register()
         {
             //using realm
@@ -153,16 +176,48 @@ namespace GTIApp.ViewModel
 
         }
         public LoginViewModel()
-        {            
-            User = "alvaro";
-            Pass = "123";
+        {
+            string elUsuarioRecordado = Settings.UserName;
+
+            if (elUsuarioRecordado!=null)
+            {
+                var realmDB = Realm.GetInstance();
+                var elUsuario = (UserModel)null;
+                if (!elUsuarioRecordado.Equals(""))
+                {
+                    elUsuario = realmDB.All<UserModel>().First(b => b.Name == elUsuarioRecordado);
+
+
+                    if (Settings.LogOut == 0)
+                    {
+
+                        User = elUsuario.Name;
+                        Pass = elUsuario.Pass;
+                        cboRecuerdame = Convert.ToBoolean(Settings.RememberMe.ToString());
+                    }
+                    else
+                    {
+                        Settings.LogOut = 0;
+                        if (!Settings.RememberMe.Equals("true"))
+                        {
+                            User = elUsuario.Name;
+                            Pass = elUsuario.Pass;
+                            cboRecuerdame = Convert.ToBoolean(Settings.RememberMe.ToString());
+                        }
+                        else
+                        {
+                            User = string.Empty;
+                            Pass = string.Empty;
+                            cboRecuerdame = false;
+                        }
+
+                    }
+                }
+            }
             message = new MessageModel();
             LoginCommand = new Command(Login);
-            cboRecuerdame = true;
-
-
-
-        }        
+            
+        }
         #endregion
 
         #region INotifyPropertyChanged Implementation

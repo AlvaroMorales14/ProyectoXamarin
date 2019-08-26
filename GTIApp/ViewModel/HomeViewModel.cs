@@ -130,13 +130,16 @@ namespace GTIApp.ViewModel
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new PersonAPIView());
                     break;
                 case 3:
+                    Settings.LogOut = 1;
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new LoginView());
                     break;
 
                 case 4:
+                    
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new TabbedPageHomeView());
+                    
                     break;
 
                 default:
