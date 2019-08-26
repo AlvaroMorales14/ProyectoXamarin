@@ -2,6 +2,7 @@
 using GTIApp.View;
 using GTIApp.View.PersonAPI;
 using Newtonsoft.Json;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -261,6 +262,8 @@ namespace GTIApp.ViewModel
 
         public async void EnterSearchNewPerson()
         {
+            //Metodo de la pantalla donde se ingresa la cedula para agregar el contacto
+            //Se agraga a la lista si se obtuvo un resultado
             if (Cedula==null)
             {
                 message.Title = "Error";
@@ -362,10 +365,6 @@ namespace GTIApp.ViewModel
                 pasoValidaciones = false;
                 cantidadDeErrores++;
             }
-            if (true)
-            {
-
-            }
             if (cantidadDeErrores==2)
             {
                 if (cantidadDeErrores==1)
@@ -395,6 +394,10 @@ namespace GTIApp.ViewModel
                     {
                         CurrentPersonAPI.Sex = 2;
                     }
+
+                    //Aca debe ir el metodo para agregarlos a la base de datos
+                    Insert();
+
                     HomeViewModel.GetInstance().load();
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
@@ -411,6 +414,19 @@ namespace GTIApp.ViewModel
             {
                 message.MostrarMensaje(message);
             }
+        }
+
+        public void Insert()
+        {
+            var realmDB = Realm.GetInstance();            
+            var elContactoAlmacenado = realmDB.All<PersonAPI>().First(b => b.Cedula == CurrentPersonAPI.Cedula);
+            if (elContactoAlmacenado!=null)
+            {
+                realmDB.Write(() =>
+                {
+                    realmDB.Add(CurrentPersonAPI);
+                });
+            }            
         }
 
         public void EnterAddPersonAPI()

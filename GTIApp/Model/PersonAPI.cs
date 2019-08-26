@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Realms;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GTIApp.Model
 {
-    public class PersonAPI
+    public class PersonAPI: RealmObject
     {
+        [PrimaryKey]
         public string Cedula { get; set; }
         public string Firstname2 { get; set; }
         public string Firstname { get; set; }
