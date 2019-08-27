@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GTIApp.Model
 {
-    public class PersonAPI: RealmObject
+    public class PersonAPI/*: RealmObject*/
     {
-        [PrimaryKey]
+        /*[PrimaryKey]*/
         public string Cedula { get; set; }
         public string Firstname2 { get; set; }
         public string Firstname { get; set; }
@@ -21,9 +21,11 @@ namespace GTIApp.Model
         public string Lastname1 { get; set; }
         public string Class { get; set; }
         public string TelephoneNumber { get; set; }
-        public DateTime DateOfAdmission { get; set; }
+        public DateTimeOffset DateOfAdmission { get; set; }
         public bool State { get; set; }
         public string CustomerType { get; set; }
         public int Sex { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

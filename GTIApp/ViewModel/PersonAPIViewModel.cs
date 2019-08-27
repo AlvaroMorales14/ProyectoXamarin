@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GTIApp.ViewModel
@@ -290,9 +291,15 @@ namespace GTIApp.ViewModel
                                 personAPI.Lastname = item.Lastname;
                                 personAPI.Fullname = item.Fullname;
                                 personAPI.Cedula = item.Cedula;
+                                personAPI.Class = item.Class;
+                                personAPI.CustomerType = item.CustomerType;
+                                personAPI.Admin = item.Admin;
                                 personAPI.TelephoneNumber = "";
                                 personAPI.Sex = 3;
-                                personAPI.State = true;                                
+                                personAPI.DateOfAdmission = DateTime.Now;
+                                personAPI.State = true;
+                                personAPI.Longitude = 0;
+                                personAPI.Latitude = 0;
                                 lstPersonAPIPerson.Add(personAPI);
 
                             }
@@ -396,7 +403,8 @@ namespace GTIApp.ViewModel
                     }
 
                     //Aca debe ir el metodo para agregarlos a la base de datos
-                    Insert();
+                        ObtenerUbucacionActualAsync();
+                        /*Insert();*/
 
                     HomeViewModel.GetInstance().load();
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
@@ -415,8 +423,8 @@ namespace GTIApp.ViewModel
                 message.MostrarMensaje(message);
             }
         }
-
-        public void Insert()
+       
+        /*public void Insert()
         {
             var realmDB = Realm.GetInstance();            
             var elContactoAlmacenado = realmDB.All<PersonAPI>().First(b => b.Cedula == CurrentPersonAPI.Cedula);
@@ -427,8 +435,27 @@ namespace GTIApp.ViewModel
                     realmDB.Add(CurrentPersonAPI);
                 });
             }            
-        }
+        }*/
+        public async void ObtenerUbucacionActualAsync()
+        {
 
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+                var location = await Geolocation.GetLocationAsync(request);
+                
+                if (location != null)
+                {
+                    CurrentPersonAPI.Latitude = location.Latitude;
+                    CurrentPersonAPI.Longitude = location.Longitude;
+
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+
+            }
+        }
         public void EnterAddPersonAPI()
         {
             foreach (var item in lstPersonAPIPerson)
