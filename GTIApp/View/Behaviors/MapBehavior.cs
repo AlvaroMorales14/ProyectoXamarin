@@ -11,7 +11,7 @@ namespace GTIApp.View.Behaviors
     public class MapBehavior : BindableBehavior<Map>
     {
         public static readonly BindableProperty ItemsSourceProperty =
-            BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable<LocationModel>), typeof(MapBehavior), null, BindingMode.Default, propertyChanged: ItemsSourceChanged);
+            BindableProperty.CreateAttached(nameof(ItemsSource), typeof(IEnumerable<LocationModel>), typeof(MapBehavior), null, BindingMode.Default, propertyChanged: ItemsSourceChanged);
 
         public IEnumerable<LocationModel> ItemsSource
         {

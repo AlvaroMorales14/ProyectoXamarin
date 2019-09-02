@@ -29,6 +29,7 @@ namespace GTIApp.ViewModel
 
         public MessageModel message;
 
+        PersonAPIModel person;
         private string _Cedula { get; set; }
         public string Cedula
         {
@@ -146,8 +147,8 @@ namespace GTIApp.ViewModel
 
         }
 
-        private DateTime _DateOfAdmission { get; set; }
-        public DateTime DateOfAdmission
+        private DateTimeOffset _DateOfAdmission { get; set; }
+        public DateTimeOffset DateOfAdmission
         {
 
             get
@@ -191,8 +192,8 @@ namespace GTIApp.ViewModel
 
         }
 
-       private ObservableCollection<PersonAPI> _lstPersonAPIPerson = new ObservableCollection<PersonAPI>();
-        public ObservableCollection<PersonAPI> lstPersonAPIPerson
+       private ObservableCollection<PersonAPIListSearch> _lstPersonAPIPerson = new ObservableCollection<PersonAPIListSearch>();
+        public ObservableCollection<PersonAPIListSearch> lstPersonAPIPerson
         {
             get
             {
@@ -236,7 +237,8 @@ namespace GTIApp.ViewModel
             Cedula = "504090261";
             lstTiposClientes.Add(Model.CustomerTypes.Contado.ToString());
             lstTiposClientes.Add(Model.CustomerTypes.Crédito.ToString());
-            DateOfAdmission = DateTime.Now;
+            /*DateOfAdmission = DateTime.Now;*/
+            lstPersonAPIPerson.Clear();
             message = new MessageModel();
         }
 
@@ -261,7 +263,7 @@ namespace GTIApp.ViewModel
 
         #region Methods
 
-        public async void EnterSearchNewPerson()
+        public void EnterSearchNewPerson()
         {
             //Metodo de la pantalla donde se ingresa la cedula para agregar el contacto
             //Se agraga a la lista si se obtuvo un resultado
@@ -278,7 +280,7 @@ namespace GTIApp.ViewModel
                 {
                     lstPersonAPI.Clear();
                     lstPersonAPIPerson.Clear();
-                    PersonAPIModel person = new PersonAPIModel();
+                    person = new PersonAPIModel();
                     person = PersonAPIModel.GetPersonByDNI(Cedula).Result;
                     if (person != null)
                     {
@@ -286,20 +288,10 @@ namespace GTIApp.ViewModel
                         {
                             if (item.Cedula.Equals(Cedula))
                             {
-                                PersonAPI personAPI = new PersonAPI();
-                                personAPI.Firstname = item.Firstname;
-                                personAPI.Lastname = item.Lastname;
+                                PersonAPIListSearch personAPI = new PersonAPIListSearch();
+
                                 personAPI.Fullname = item.Fullname;
                                 personAPI.Cedula = item.Cedula;
-                                personAPI.Class = item.Class;
-                                personAPI.CustomerType = item.CustomerType;
-                                personAPI.Admin = item.Admin;
-                                personAPI.TelephoneNumber = "";
-                                personAPI.Sex = 3;
-                                personAPI.DateOfAdmission = DateTime.Now;
-                                personAPI.State = true;
-                                personAPI.Longitude = 0;
-                                personAPI.Latitude = 0;
                                 lstPersonAPIPerson.Add(personAPI);
 
                             }
@@ -324,7 +316,7 @@ namespace GTIApp.ViewModel
             }
         }
 
-        public void AddNewPersonAPI()
+        public async void AddNewPersonAPI()
         {/*
             //EDITAR
             if (CurrentPerson.Id != 0)
@@ -403,10 +395,10 @@ namespace GTIApp.ViewModel
                     }
 
                     //Aca debe ir el metodo para agregarlos a la base de datos
-                        ObtenerUbucacionActualAsync();
-                        /*Insert();*/
+                    await ObtenerUbicacionActualAsync();
 
-                    HomeViewModel.GetInstance().load();
+                    Insert();
+                    HomeViewModel.GetInstance().LoadContacts();
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                 }
@@ -424,37 +416,51 @@ namespace GTIApp.ViewModel
             }
         }
        
-        /*public void Insert()
+        public void Insert()
         {
             var realmDB = Realm.GetInstance();            
-            var elContactoAlmacenado = realmDB.All<PersonAPI>().First(b => b.Cedula == CurrentPersonAPI.Cedula);
-            if (elContactoAlmacenado!=null)
+            PersonAPI elContactoAlmacenado = realmDB.All<PersonAPI>().FirstOrDefault(b => b.Cedula == CurrentPersonAPI.Cedula);
+            if (elContactoAlmacenado == null)
             {
                 realmDB.Write(() =>
                 {
+                    CurrentPersonAPI.DateOfAdmission = DateTimeOffset.Now;
                     realmDB.Add(CurrentPersonAPI);
                 });
-            }            
-        }*/
-        public async void ObtenerUbucacionActualAsync()
+            }
+            else
+            {
+                message.Title = "Error";
+                message.Message = "Este contacto ya existe";
+                message.Cancel = "Aceptar";
+                message.MostrarMensaje(message);
+            }
+            
+        }
+        public async Task<Location> ObtenerUbicacionActualAsync()
         {
-
+            Location location = null;
             try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-                var location = await Geolocation.GetLocationAsync(request);
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                location = await Geolocation.GetLocationAsync(request);
                 
                 if (location != null)
                 {
                     CurrentPersonAPI.Latitude = location.Latitude;
                     CurrentPersonAPI.Longitude = location.Longitude;
-
+                    
                 }
+
             }
             catch (FeatureNotSupportedException fnsEx)
             {
-
+                message.Title = "Error";
+                message.Message = "Ubicación actual no obtenida.";
+                message.Cancel = "Aceptar";
+                message.MostrarMensaje(message);
             }
+            return location;
         }
         public void EnterAddPersonAPI()
         {
@@ -462,8 +468,11 @@ namespace GTIApp.ViewModel
             {
                 if (item.Cedula.Equals(Cedula))
                 {
-                    CurrentPersonAPI = item;
-
+                    foreach (var currentPerson in person.results)
+                    {
+                        CurrentPersonAPI.DateOfAdmission = DateTime.Now;
+                        CurrentPersonAPI = currentPerson;
+                    }
                 }
             }
             ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new FormPersonAPIView());

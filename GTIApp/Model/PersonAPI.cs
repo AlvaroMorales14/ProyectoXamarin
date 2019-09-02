@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GTIApp.Model
 {
-    public class PersonAPI/*: RealmObject*/
+    public class PersonAPI: RealmObject
     {
-        /*[PrimaryKey]*/
+        [PrimaryKey]
         public string Cedula { get; set; }
         public string Firstname2 { get; set; }
         public string Firstname { get; set; }
@@ -27,5 +27,12 @@ namespace GTIApp.Model
         public int Sex { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+    }
+
+    public class PersonAPIListSearch
+    {        
+        public string Cedula { get; set; }
+        public string Fullname { get; set; }
+
     }
 }

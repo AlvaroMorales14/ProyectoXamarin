@@ -5,6 +5,7 @@ using System.Windows.Input;
 using GTIApp.Model;
 using GTIApp.View;
 using Realms;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GTIApp.ViewModel
@@ -177,11 +178,16 @@ namespace GTIApp.ViewModel
         }
         public LoginViewModel()
         {
+            location();
+            var realmDB = Realm.GetInstance();
+            if (realmDB.All<UserModel>().ToList().Count==0)
+            {
+                Register();
+            }
             string elUsuarioRecordado = Settings.UserName;
 
             if (elUsuarioRecordado!=null)
             {
-                var realmDB = Realm.GetInstance();
                 var elUsuario = (UserModel)null;
                 if (!elUsuarioRecordado.Equals(""))
                 {
@@ -218,6 +224,14 @@ namespace GTIApp.ViewModel
             LoginCommand = new Command(Login);
             
         }
+
+        public async void location()
+        {
+
+            var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+            var location = await Geolocation.GetLocationAsync(request);
+        }
+
         #endregion
 
         #region INotifyPropertyChanged Implementation

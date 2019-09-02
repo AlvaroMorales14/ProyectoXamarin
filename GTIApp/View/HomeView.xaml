@@ -20,20 +20,15 @@
                         <ImageCell Text="{Binding Cedula}"
                                    Detail="{Binding Fullname}"                                                                   
                                    TextColor="#4590e6"
-                                   DetailColor="Gray">
+                                   DetailColor="Gray"
+                                   Command="{Binding Path=BindingContext.ViewContactsCommand, Source={x:Reference PersonAPIStorage}}"
+                                   CommandParameter="{Binding Cedula}">
                             <ImageCell.ContextActions>
                                 <MenuItem 
                                         Text="Eliminar"
                                         IsDestructive="True"                                        
                                         Command="{Binding Path=BindingContext.DeletePersonAPIStorageCommand, Source={x:Reference PersonAPIStorage}}"
                                         CommandParameter="{Binding Cedula}"/>
-
-                                <MenuItem 
-                                        Text="Editar"
-                                        IsDestructive="True"
-                                        Command="{Binding Path=BindingContext.EnterEditPersonAPIStorageCommand, Source={x:Reference PersonAPIStorage}}"
-                                        CommandParameter="{Binding Cedula}"
-                                        />
 
                             </ImageCell.ContextActions>
                         </ImageCell>

@@ -59,10 +59,10 @@ namespace GTIApp.ViewModel
         private PersonViewModel()
         {
 
-            /*lstPerson = PersonModel.ObtenerPersonas();*/
-            CustomerModel person = new CustomerModel();
+            /*lstPerson = PersonModel.ObtenerPersonas();
+           CustomerModel person = new CustomerModel();
             lstPerson = PersonModel.GetAllPersons().Result;
-           /* foreach (var item in _lstPersonApi)
+           foreach (var item in _lstPersonApi)
             {
                 PersonModel PersonaDelApi = new PersonModel();
                 PersonaDelApi.Id = item.id;
