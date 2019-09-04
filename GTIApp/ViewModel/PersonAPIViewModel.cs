@@ -30,6 +30,9 @@ namespace GTIApp.ViewModel
         public MessageModel message;
 
         PersonAPIModel person;
+
+        public double latitud { get; set; }
+        public double longitud { get; set; }
         private string _Cedula { get; set; }
         public string Cedula
         {
@@ -408,6 +411,8 @@ namespace GTIApp.ViewModel
        
         public void Insert()
         {
+
+            //Inserta contacto
             var realmDB = Realm.GetInstance();            
             PersonAPI elContactoAlmacenado = realmDB.All<PersonAPI>().FirstOrDefault(b => b.Cedula == CurrentPersonAPI.Cedula);
             if (elContactoAlmacenado == null)
@@ -425,7 +430,20 @@ namespace GTIApp.ViewModel
                 message.Cancel = "Aceptar";
                 message.MostrarMensaje(message);
             }
-            
+
+            //inserta ubicacion del usuario
+
+            //List<LocationModel> laListaDeContactos = realmDB.All<LocationModel>().ToList();
+            LocationModel ubicacion = new LocationModel();
+            realmDB.Write(() =>
+            {
+                ubicacion.latitud = latitud;
+                ubicacion.longitud = longitud;
+                ubicacion.cedula = CurrentPersonAPI.Cedula;
+                ubicacion.descripcion = CurrentPersonAPI.Fullname;
+                realmDB.Add(ubicacion);
+            });
+
         }
         public async Task<Location> ObtenerUbicacionActualAsync()
         {
@@ -437,8 +455,8 @@ namespace GTIApp.ViewModel
                 
                 if (location != null)
                 {
-                    CurrentPersonAPI.Latitude = location.Latitude;
-                    CurrentPersonAPI.Longitude = location.Longitude;
+                    latitud = location.Latitude;
+                    longitud = location.Longitude;
                     
                 }
 
