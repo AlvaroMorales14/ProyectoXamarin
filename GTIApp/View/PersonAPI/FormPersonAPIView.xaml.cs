@@ -15,31 +15,33 @@ namespace GTIApp.View.PersonAPI
         public FormPersonAPIView()
         {
             InitializeComponent();
-            
+
             BindingContext = PersonAPIViewModel.GetInstance();
             CustomerType.SelectedIndex = 0;
         }
         void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-           
-            if (PersonAPIViewModel.GetInstance().cbSexoM)
+            if (sender==cboF)
             {
-                PersonAPIViewModel.GetInstance().cbSexoF = false;
+                cboM.IsChecked = false;
             }
-            else if (PersonAPIViewModel.GetInstance().cbSexoF)
+            if (sender==cboM)
             {
-                PersonAPIViewModel.GetInstance().cbSexoM = false;
+                cboF.IsChecked = false;
             }
         }
-
-        void OnSwitchCheckedChanged(object sender, CheckedChangedEventArgs e)
+        void DateSelected(object sender, DateChangedEventArgs e)
+        {
+            PersonAPIViewModel.GetInstance().DateOfAdmission = e.NewDate;
+        }
+            void OnSwitchCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
 
             if (PersonAPIViewModel.GetInstance().CurrentPersonAPI.State)
             {
                 PersonAPIViewModel.GetInstance().TextSwitch = "Activo";
             }
-            else 
+            else
             {
                 PersonAPIViewModel.GetInstance().TextSwitch = "Inactivo";
             }

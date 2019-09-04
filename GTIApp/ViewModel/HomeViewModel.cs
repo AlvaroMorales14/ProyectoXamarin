@@ -97,13 +97,98 @@ namespace GTIApp.ViewModel
             }
 
         }
+        private string _TextSwitch { get; set; }
+        public string TextSwitch
+        {
+            get
+            {
+                return _TextSwitch;
+            }
+            set
+            {
+                _TextSwitch = value;
+                OnPropertyChanged("TextSwitch");
+            }
+        }
+        private bool _State { get; set; }
+        public bool State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                /*if (State)
+                {
+                    CurrentPersonAPI.IsActive = State;
+                    StateText = "Activo";
+                }
+                else
+                {
+                    CurrentPersonAPI.IsActive = State;
+                    StateText = "Inactivo";
+                }*/
+                _State = value;
+                OnPropertyChanged("State");
+            }
+
+        }
+
+        private bool _cbSexoM { get; set; }
+        public bool cbSexoM
+        {
+
+            get
+            {
+                return _cbSexoM;
+            }
+            set
+            {
+                _cbSexoM = value;
+                OnPropertyChanged("cbSexoM");
+            }
+
+        }
+        private bool _cbSexoF { get; set; }
+        public bool cbSexoF
+        {
+
+            get
+            {
+                return _cbSexoF;
+            }
+            set
+            {
+                _cbSexoF = value;
+                OnPropertyChanged("cbSexoF");
+            }
+
+        }
+
+        private string _DateOfAdmission { get; set; }
+        public string DateOfAdmission
+        {
+
+            get
+            {
+                return _DateOfAdmission;
+            }
+            set
+            {
+
+                _DateOfAdmission = value;
+                OnPropertyChanged("DateOfAdmission");
+            }
+
+        }
         public ICommand EnterMenuOptionCommand { get; set; }
         public ICommand EnterEditPersonAPIStorageCommand { get; set; }
         public ICommand DeletePersonAPIStorageCommand { get; set; }
 
         public ICommand ViewContactsCommand { get; set; }
 
-        
+
         #endregion
 
         #region Methods
@@ -112,11 +197,11 @@ namespace GTIApp.ViewModel
             lstMenu = MenuModel.GetMenu();
             CurrentPersonAPI = new PersonAPI();
             LoadContacts();
-            
+
 
             EnterMenuOptionCommand = new Command<int>(EnterMenuOption);
             EnterEditPersonAPIStorageCommand = new Command<string>(EnterEditPersonAPIStorage);
-           DeletePersonAPIStorageCommand = new Command<string>(DeletePersonAPIStorage);
+            DeletePersonAPIStorageCommand = new Command<string>(DeletePersonAPIStorage);
             ViewContactsCommand = new Command<string>(ViewContacts);
         }
 
@@ -129,7 +214,7 @@ namespace GTIApp.ViewModel
                 case 1:
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new MainPersonView());
-                   
+
                     break;
 
                 case 2:
@@ -143,16 +228,16 @@ namespace GTIApp.ViewModel
                     break;
 
                 case 4:
-                    
+
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new TabbedPageHomeView());
-                    
+
                     break;
 
                 default:
                     break;
             }
-        }      
+        }
         public void ViewContacts(string cedula)
         {
 
@@ -161,6 +246,27 @@ namespace GTIApp.ViewModel
                 if (item.Cedula.Equals(cedula))
                 {
                     CurrentPersonAPI = item;
+                    if (CurrentPersonAPI.State)
+                    {
+                        TextSwitch = "Activo";
+                    }
+                    else
+                    {
+                        TextSwitch = "Inactivo";
+                    }
+                    if (CurrentPersonAPI.Sex == 1)
+                    {
+                        cbSexoF = false;
+                        cbSexoM = true;
+                    }
+                    else if (CurrentPersonAPI.Sex == 2)
+                    {
+                        cbSexoF = true;
+                        cbSexoM = false;
+                    }
+
+                    DateOfAdmission = CurrentPersonAPI.DateOfAdmission.Date.ToString().Substring(0, 10);
+
                 }
             }
             ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new ContactsView());
@@ -195,7 +301,7 @@ namespace GTIApp.ViewModel
             lstPersonsAPIStorage.Clear();
             foreach (var item in laListaDeContactos)
             {
-                    lstPersonsAPIStorage.Add(item);
+                lstPersonsAPIStorage.Add(item);
             }
             if (lstPersonsAPIStorage.Count == 0)
             {

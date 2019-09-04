@@ -16,7 +16,33 @@ namespace GTIApp.View.PersonAPI
         public ContactsView()
         {
             BindingContext = HomeViewModel.GetInstance();
-            InitializeComponent();
+            InitializeComponent();            
+        }
+
+        void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+
+            if (sender == cboF)
+            {
+                cboM.IsChecked = false;
+            }
+            if (sender == cboM)
+            {
+                cboF.IsChecked = false;
+            }
+        }
+
+        void OnSwitchCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+
+            if (HomeViewModel.GetInstance().CurrentPersonAPI.State)
+            {
+                HomeViewModel.GetInstance().TextSwitch = "Activo";
+            }
+            else
+            {
+                HomeViewModel.GetInstance().TextSwitch = "Inactivo";
+            }
         }
     }
 }

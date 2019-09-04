@@ -94,8 +94,9 @@
                            VerticalOptions="Center" />
                         <DatePicker 
                                     MinimumDate="{Binding MinimumDate}"
-                                    MaximumDate="{Binding MaximumDate}"                                    
-                                    Date="{Binding DateOfAdmission}"/>
+                                    MaximumDate="{Binding MaximumDate}"
+                            DateSelected="DateSelected"
+                                    />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label 
@@ -109,13 +110,13 @@
                            TextColor="#555" 
                            FontSize="Small" 
                            VerticalOptions="Center" />
-                        <CheckBox Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged"  HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoM, Mode=TwoWay}"/>
+                        <CheckBox x:Name="cboM" Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged"  HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoM, Mode=TwoWay}"/>
                         <Label 
                            Text="Mujer : " 
                            TextColor="#555" 
                            FontSize="Small" 
                            VerticalOptions="Center" />
-                        <CheckBox Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged" HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoF, Mode=TwoWay}"/>
+                        <CheckBox x:Name="cboF" Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged" HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoF, Mode=TwoWay}"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label 

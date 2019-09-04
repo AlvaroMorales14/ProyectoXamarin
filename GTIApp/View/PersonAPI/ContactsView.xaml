@@ -8,48 +8,43 @@
     <Grid>
         <ScrollView>
             <StackLayout>
+                <Label Text="Información del contacto "
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"                       
+                           TextColor="#190E5D" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                
                 <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <Label Text="Nombre : "
                            VerticalOptions="Center"
                            TextColor="#555" 
                            FontSize="20" 
                            FontAttributes="Bold"/>
-                    <Entry Placeholder="Ingrese su nombre"
-                           PlaceholderColor="#CCC" 
+                    <Label Text="{Binding CurrentPersonAPI.Firstname}"
                            FontSize="20" 
                            TextColor="#555" 
-                           VerticalOptions="CenterAndExpand"
-                   Text="{Binding CurrentPersonAPI.Firstname}" />
-                    </StackLayout>
-                
-                <!--<StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="0,1,0,1">
+                           VerticalOptions="CenterAndExpand"/>
                     <Label Text="Apellidos : "
                            TextColor="#555" 
                            FontSize="20" 
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
-                    <Entry Placeholder="Ingrese su apellido"
-                           PlaceholderColor="#CCC" 
+                    <Label Text="{Binding CurrentPersonAPI.Lastname}"
                            FontSize="20" 
                            TextColor="#555"
-                           VerticalOptions="CenterAndExpand" 
-                   Text="{Binding CurrentPersonAPI.Lastname}" />
-                    </StackLayout>
-                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="0,1,0,1">
+                           VerticalOptions="CenterAndExpand"/>
+                
                     <Label Text="Telefono : "
                            TextColor="#555" 
                            FontSize="20" 
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
-                    <Entry Placeholder="Ingrese el numero telefonico"
-                           PlaceholderColor="#CCC" 
+                    <Label Text="{Binding CurrentPersonAPI.TelephoneNumber}"
                            FontSize="20" 
                            TextColor="#555"
-                           Keyboard="Numeric"
-                           VerticalOptions="CenterAndExpand" 
-                   Text="{Binding CurrentPersonAPI.TelephoneNumber}" />
-                    </StackLayout>
-                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="0,1,0,1">
+                           VerticalOptions="CenterAndExpand"/>
+                
                     <Label Text="Tipo de cliente : "
                            TextColor="#555" 
                            FontSize="20" 
@@ -60,7 +55,6 @@
                             FontSize="20" 
                             TextColor="#555"                             
                             VerticalOptions="Center"                            
-                            ItemsSource="{Binding lstTiposClientes}"
                             SelectedItem="{Binding CurrentPersonAPI.CustomerType}">
                         <Picker.Items>
                             <x:String>Crédito</x:String>
@@ -76,11 +70,10 @@
                         <StackLayout Orientation="Horizontal" 
                                      Spacing="0" 
                                      HorizontalOptions="EndAndExpand">
-                            <Label Text="{Binding IsToggled,Source={x:Reference switch}}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                             <Label Text="{Binding TextSwitch}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
                             <Switch x:Name="switch" 
-                                    IsToggled="{Binding CurrentPersonAPI.State}"
-                                    Toggled="OnSwitchCheckedChanged"                             
+                                    IsToggled="{Binding CurrentPersonAPI.State}" 
+                                    Toggled="OnSwitchCheckedChanged" 
                                     VerticalOptions="Start"/>
                         </StackLayout>
                     </StackLayout>
@@ -91,10 +84,16 @@
                            FontSize="20" 
                            FontAttributes="Bold"
                            VerticalOptions="Center" />
-                        <DatePicker 
+                        <Label 
+                           Text="{Binding DateOfAdmission}" 
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+                        <!--<DatePicker x:Name="Fecha"
                                     MinimumDate="{Binding MinimumDate}"
-                                    MaximumDate="{Binding MaximumDate}"                                    
-                                    Date="{Binding DateOfAdmission}"/>
+                                    MaximumDate="{Binding MaximumDate}"
+                                    Date="{Binding DateOfAdmission}"/>-->
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label 
@@ -108,15 +107,15 @@
                            TextColor="#555" 
                            FontSize="Small" 
                            VerticalOptions="Center" />
-                        <CheckBox Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged"  HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoM, Mode=TwoWay}"/>
+                        <CheckBox x:Name="cboM" Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged"  HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoM, Mode=TwoWay}"/>
                         <Label 
                            Text="Mujer : " 
                            TextColor="#555" 
                            FontSize="Small" 
                            VerticalOptions="Center" />
-                        <CheckBox Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged" HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoF, Mode=TwoWay}"/>
+                        <CheckBox x:Name="cboF" Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged" HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoF, Mode=TwoWay}"/>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
+                    <!--<StackLayout Orientation="Horizontal">
                         <Label 
                            Text="Tomar fotografía : " 
                            TextColor="#555" 
@@ -133,10 +132,9 @@
                             BackgroundColor="Transparent"
                             ImageSource="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios11-control-center-camera-icon.png"
                     Command="{Binding AddNewPhotoPersonAPICommand}"/>
-
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
-                <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
                     <Button Text="Ok" 
                             TextColor="White"
                             FontSize="Large"

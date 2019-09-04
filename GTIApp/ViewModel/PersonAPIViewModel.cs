@@ -46,6 +46,22 @@ namespace GTIApp.ViewModel
 
         }
 
+        private int _LastSelectedSex { get; set; }
+        public int LastSelectedSex
+        {
+
+            get
+            {
+                return _LastSelectedSex;
+            }
+            set
+            {
+                _LastSelectedSex = value;
+                OnPropertyChanged("LastSelectedSex");
+            }
+
+        }
+
         private bool _FocoCampoCedula { get; set; }
         public bool FocoCampoCedula
         {
@@ -237,8 +253,10 @@ namespace GTIApp.ViewModel
             Cedula = "504090261";
             lstTiposClientes.Add(Model.CustomerTypes.Contado.ToString());
             lstTiposClientes.Add(Model.CustomerTypes.Crédito.ToString());
-            /*DateOfAdmission = DateTime.Now;*/
+            lstPersonAPI.Clear();
             lstPersonAPIPerson.Clear();
+            Cedula = "";
+            DateOfAdmission = DateTimeOffset.Now;
             message = new MessageModel();
         }
 
@@ -267,7 +285,7 @@ namespace GTIApp.ViewModel
         {
             //Metodo de la pantalla donde se ingresa la cedula para agregar el contacto
             //Se agraga a la lista si se obtuvo un resultado
-            if (Cedula==null)
+            if (Cedula==null || Cedula.Length==0)
             {
                 message.Title = "Error";
                 message.Message = "No ingresó ninguna cédula.";
@@ -317,35 +335,7 @@ namespace GTIApp.ViewModel
         }
 
         public async void AddNewPersonAPI()
-        {/*
-            //EDITAR
-            if (CurrentPerson.Id != 0)
-            {
-
-                foreach (var item in lstPersonAPI.ToList())
-                {
-                    if (item.Id == CurrentPerson.Id)
-                    {
-                        item.Edad = CurrentPerson.Edad;
-                        item.Nombre = FirstCharToUpper(CurrentPerson.Nombre);
-                        item.Apellido = FirstCharToUpper(CurrentPerson.Apellido);
-                    }
-                }
-            }
-            //SI NO EXISTE LO AGREGAMOS
-            else
-            {
-                CurrentPerson.Nombre = FirstCharToUpper(CurrentPerson.Nombre);
-                CurrentPerson.Apellido = FirstCharToUpper(CurrentPerson.Apellido);
-                CurrentPerson.Id = lstPersonAPI.Count() + 1;
-                CurrentPerson.Foto = "https://cdn.icon-icons.com/icons2/37/PNG/512/contacts_3695.png";
-                lstPerson.Add(CurrentPerson);
-                CurrentPerson = new PersonModel();
-
-                PersonModel.AddPerson(CurrentPerson);
-
-            }
-            CurrentPerson = new PersonModel();*/
+        {
             bool pasoValidaciones = true;
             int cantidadDeErrores = 0;
             if (CurrentPersonAPI.TelephoneNumber.Length != 8)
@@ -424,7 +414,7 @@ namespace GTIApp.ViewModel
             {
                 realmDB.Write(() =>
                 {
-                    CurrentPersonAPI.DateOfAdmission = DateTimeOffset.Now;
+                    CurrentPersonAPI.DateOfAdmission = DateOfAdmission;
                     realmDB.Add(CurrentPersonAPI);
                 });
             }
