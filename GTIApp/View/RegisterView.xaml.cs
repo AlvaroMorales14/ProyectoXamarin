@@ -9,13 +9,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace GTIApp.View
-{    
-    public partial class TabbedPageHomeView : TabbedPage
+{
+    public partial class RegisterView : ContentPage
     {
-        public TabbedPageHomeView()
+        public RegisterView()
         {
             InitializeComponent();
-            
+            BindingContext = new LoginViewModel();            
         }
+
     }
 }

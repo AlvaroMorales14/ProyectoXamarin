@@ -12,5 +12,6 @@ namespace GTIApp.Model
         public double latitud { get; set; }
         public double longitud { get; set; }
         public string descripcion { get; set; }
+        public int idUser { get; set; }
     }
 }

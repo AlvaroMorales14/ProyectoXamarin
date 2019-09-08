@@ -23,6 +23,9 @@
                 <StackLayout Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <Button x:Name="BtnLogin" Command="{Binding LoginCommand}" Text="Iniciar sesión" BorderColor="#CB9600" BackgroundColor="#4590e6" TextColor="White"/>
                 </StackLayout>
+                <StackLayout Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Button Command="{Binding EnterRegisterCommand}" Text="Registrarme" BorderColor="#CB9600" BackgroundColor="#4590e6" TextColor="White"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
         <ActivityIndicator IsRunning="true" />

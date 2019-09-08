@@ -102,16 +102,6 @@ namespace GTIApp.ViewModel
             }
             set
             {                               
-                /*if (State)
-                {
-                    CurrentPersonAPI.IsActive = State;
-                    StateText = "Activo";
-                }
-                else
-                {
-                    CurrentPersonAPI.IsActive = State;
-                    StateText = "Inactivo";
-                }*/
                 _State= value;
                 OnPropertyChanged("State");
             }
@@ -392,8 +382,8 @@ namespace GTIApp.ViewModel
 
                     Insert();
                     HomeViewModel.GetInstance().LoadContacts();
-                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
-                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
+                    await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
+                    await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                 }
                 catch (Exception ex)
                 {
@@ -410,15 +400,17 @@ namespace GTIApp.ViewModel
         }
        
         public void Insert()
-        {
+        {            
 
             //Inserta contacto
             var realmDB = Realm.GetInstance();            
             PersonAPI elContactoAlmacenado = realmDB.All<PersonAPI>().FirstOrDefault(b => b.Cedula == CurrentPersonAPI.Cedula);
+            UserModel elUsuarioActual = realmDB.All<UserModel>().FirstOrDefault(b => b.Name.Equals(Settings.UserName));
             if (elContactoAlmacenado == null)
             {
                 realmDB.Write(() =>
                 {
+                    CurrentPersonAPI.IdUser = elUsuarioActual.Id;
                     CurrentPersonAPI.DateOfAdmission = DateOfAdmission;
                     realmDB.Add(CurrentPersonAPI);
                 });
@@ -441,6 +433,7 @@ namespace GTIApp.ViewModel
                 ubicacion.longitud = longitud;
                 ubicacion.cedula = CurrentPersonAPI.Cedula;
                 ubicacion.descripcion = CurrentPersonAPI.Fullname;
+                ubicacion.idUser = elUsuarioActual.Id;
                 realmDB.Add(ubicacion);
             });
 
@@ -483,6 +476,8 @@ namespace GTIApp.ViewModel
                     }
                 }
             }
+            lstPersonAPIPerson.Clear();
+            Cedula = string.Empty;
             ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new FormPersonAPIView());
         }
 
@@ -492,8 +487,6 @@ namespace GTIApp.ViewModel
             lstPersonAPIPerson.Clear();
             FocoCampoCedula = true;
             Cedula = "";
-
-
         }
 
         public static string FirstCharToUpper(string input)

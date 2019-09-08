@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GTIApp.View.RegisterView">
+    <Grid>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label Text="Nombre" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding FullName}" FontSize="20" TextColor="#555" />
+                    <Label Text="Edad" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding Age}" FontSize="20" TextColor="#555" Keyboard="Numeric" />
+                    <Label Text="Nombre de usuario" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding User}" FontSize="20" TextColor="#555" />
+                    <Label Text="Contraseña" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
+                    <Entry  Text="{Binding Pass}"  Keyboard="Default" IsPassword="True" FontSize="20" TextColor="#555" />
+                </StackLayout>
+                <StackLayout Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Button x:Name="BtnRegister" Command="{Binding RegisterCommand}" Text="Registrarme" BorderColor="#CB9600" BackgroundColor="#4590e6" TextColor="White"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <ActivityIndicator IsRunning="true" />
+    </Grid>
+</ContentPage>

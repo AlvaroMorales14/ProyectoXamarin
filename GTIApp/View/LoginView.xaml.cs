@@ -13,5 +13,10 @@ namespace GTIApp.View
 
             BindingContext = new LoginViewModel();
         }
+
+        /*async void RegisterUser(object sender, EventArgs e)
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new RegisterView());
+        }*/
     }
 }

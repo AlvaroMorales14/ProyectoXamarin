@@ -2,8 +2,10 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Android.Content.Res;
 using GTIApp.Model;
 using GTIApp.View;
+using Microsoft.WindowsAzure.MobileServices;
 using Realms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,7 +18,6 @@ namespace GTIApp.ViewModel
         #region Properties
 
         private string _User { get; set; }
-
         public string User
         {
             get
@@ -30,6 +31,19 @@ namespace GTIApp.ViewModel
             }
         }
 
+        private string _UserActive { get; set; }
+        public string UserActive
+        {
+            get
+            {
+                return _UserActive;
+            }
+            set
+            {
+                _UserActive = value;
+                OnPropertyChanged("UserActive");
+            }
+        }
         private bool _cboRecuerdame { get; set; }
 
         public bool cboRecuerdame
@@ -44,9 +58,7 @@ namespace GTIApp.ViewModel
                 OnPropertyChanged("cboRecuerdame");
             }
         }
-
         private string _Pass { get; set; }
-
         public string Pass
         {
             get
@@ -60,7 +72,6 @@ namespace GTIApp.ViewModel
             }
         }
         private bool _Runing { get; set; }
-
         public bool Runing
         {
             get
@@ -73,22 +84,35 @@ namespace GTIApp.ViewModel
                 OnPropertyChanged("Runing");
             }
         }
-        /*private UserModel _User { get; set; }
-
-        public UserModel User
+        private int _Age { get; set; }
+        public int Age
         {
             get
             {
-                return _User;
+                return _Age;
             }
             set
             {
-                _User = value;
-                OnPropertyChanged("User");
+                _Age = value;
+                OnPropertyChanged("Age");
             }
-        }*/
-
+        }
+        private string _FullName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                _FullName = value;
+                OnPropertyChanged("FullName");
+            }
+        }
         public ICommand LoginCommand { get; set; }
+        public ICommand RegisterCommand { get; set; }
+        public ICommand EnterRegisterCommand { get; set; }
 
         public MessageModel message;
 
@@ -96,26 +120,23 @@ namespace GTIApp.ViewModel
 
         #region Methods
 
-        public async void Login()
+        public void Login()
         {
             var realmDB = Realm.GetInstance();
-            var elNuevoUsuario = realmDB.All<UserModel>().First(b => b.Name == User);
-
-            if (User!=null)
-            {                
+            var elNuevoUsuario = realmDB.All<UserModel>().FirstOrDefault(b => b.Name == User);
+            Settings.UserActive = User;
+            if (User!=null && elNuevoUsuario!=null)
+            {
                 if (User == elNuevoUsuario.Name && Pass == elNuevoUsuario.Pass)
                 {
-                    /*this.Runing = true;
-                    System.Threading.Thread.Sleep(3000);*/
                     NavigationPage navigation = new NavigationPage(new HomeView());
 
                     App.Current.MainPage = new MasterDetailPage
                     {
                         Master = new MenuView(),
                         Detail = navigation
-                    };
-                    /*this.Runing = false;*/
-
+                    };                    
+                    
                     if (cboRecuerdame)
                     {
                         if (elNuevoUsuario != null)
@@ -150,10 +171,14 @@ namespace GTIApp.ViewModel
                  message.MostrarMensaje(message);
             }
         }
-        public async void Register()
-        {
-            //using realm
 
+        public async void EnterRegister()
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new RegisterView());
+        }
+
+        public async void Register()
+        {            
             var realmDB = Realm.GetInstance();
             var elUsuario = realmDB.All<UserModel>().ToList();
             var elIdDelUltimoUsuarioInsertado = 0;
@@ -161,29 +186,57 @@ namespace GTIApp.ViewModel
             {
                 elIdDelUltimoUsuarioInsertado = elUsuario.Max(s => s.Id);
             }
-            UserModel elNuevoUsuario = new UserModel()
+            if (User.Equals("") || FullName.Equals("") || Pass.Equals("") || Age == 0)
             {
-                Id = elIdDelUltimoUsuarioInsertado + 1,
-                Name = "alvaro",
-                Pass = "123"
-            };
-            realmDB.Write(() =>
-            {
-                realmDB.Add(elNuevoUsuario);
-            });
-            /*txtStudentName.Text = string.Empty;
-            List<Student> studentList = realmDB.All<Student>().ToList();
-            listStudent.ItemsSource = studentList;*/
 
+                message.Title = "Error";
+                message.Message = "Complete correctamente los campos";
+                message.Cancel = "Aceptar";
+                message.MostrarMensaje(message);
+
+            }
+            else
+            {
+                UserModel elNuevoUsuario = new UserModel()
+                {
+                    Id = elIdDelUltimoUsuarioInsertado + 1,
+                    Name = User,
+                    Pass = Pass,
+                    FullName = FullName,
+                    Age = Age
+                };
+                UserModel elUsuarioAlmacenado = realmDB.All<UserModel>().FirstOrDefault(b => b.Name == User);
+                if (elUsuarioAlmacenado==null)
+                {
+                    realmDB.Write(() =>
+                    {
+                        realmDB.Add(elNuevoUsuario);
+                    });
+                    
+                    User = string.Empty;
+                    Pass = string.Empty;
+                    FullName = string.Empty;
+                    Age = 0;
+                    await App.Current.MainPage.Navigation.PushModalAsync(new LoginView());
+                }
+                else
+                {
+                    message.Title = "Error";
+                    message.Message = "El usuario con el nombre "+ User+ ", ya existe.";
+                    message.Cancel = "Aceptar";
+                    message.MostrarMensaje(message);
+                }
+                
+            }
         }
         public LoginViewModel()
         {
             location();
             var realmDB = Realm.GetInstance();
-            if (realmDB.All<UserModel>().ToList().Count==0)
+            /*if (realmDB.All<UserModel>().ToList().Count==0)
             {
                 Register();
-            }
+            }*/
             string elUsuarioRecordado = Settings.UserName;
 
             if (elUsuarioRecordado!=null)
@@ -191,12 +244,10 @@ namespace GTIApp.ViewModel
                 var elUsuario = (UserModel)null;
                 if (!elUsuarioRecordado.Equals(""))
                 {
-                    elUsuario = realmDB.All<UserModel>().First(b => b.Name == elUsuarioRecordado);
-
+                    elUsuario = realmDB.All<UserModel>().FirstOrDefault(b => b.Name == elUsuarioRecordado);
 
                     if (Settings.LogOut == 0)
                     {
-
                         User = elUsuario.Name;
                         Pass = elUsuario.Pass;
                         cboRecuerdame = Convert.ToBoolean(Settings.RememberMe.ToString());
@@ -216,18 +267,18 @@ namespace GTIApp.ViewModel
                             Pass = string.Empty;
                             cboRecuerdame = false;
                         }
-
                     }
                 }
             }
             message = new MessageModel();
             LoginCommand = new Command(Login);
-            
+            RegisterCommand = new Command(Register);
+            EnterRegisterCommand = new Command(EnterRegister);
+
         }
 
         public async void location()
         {
-
             var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
             var location = await Geolocation.GetLocationAsync(request);
         }

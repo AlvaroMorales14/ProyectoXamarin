@@ -25,6 +25,7 @@ namespace GTIApp.Model
         public bool State { get; set; }
         public string CustomerType { get; set; }
         public int Sex { get; set; }
+        public int IdUser { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     }

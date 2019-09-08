@@ -17,7 +17,7 @@
                           IsPullToRefreshEnabled="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell Text="{Binding Cedula}"
+                        <ImageCell Text="{Binding TelephoneNumber}"
                                    Detail="{Binding Fullname}"                                                                   
                                    TextColor="#4590e6"
                                    DetailColor="Gray"

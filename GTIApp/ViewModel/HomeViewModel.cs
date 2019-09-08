@@ -61,6 +61,19 @@ namespace GTIApp.ViewModel
 
         }
 
+        private UserModel _CurrentUser { get; set; }
+        public UserModel CurrentUser
+        {
+            get
+            {
+                return _CurrentUser;
+            }
+            set
+            {
+                _CurrentUser = value;
+                OnPropertyChanged("CurrentUser");
+            }
+        }
         private string _CantidadElementos { get; set; }
         public string CantidadElementos
         {
@@ -119,16 +132,6 @@ namespace GTIApp.ViewModel
             }
             set
             {
-                /*if (State)
-                {
-                    CurrentPersonAPI.IsActive = State;
-                    StateText = "Activo";
-                }
-                else
-                {
-                    CurrentPersonAPI.IsActive = State;
-                    StateText = "Inactivo";
-                }*/
                 _State = value;
                 OnPropertyChanged("State");
             }
@@ -185,7 +188,6 @@ namespace GTIApp.ViewModel
         public ICommand EnterMenuOptionCommand { get; set; }
         public ICommand EnterEditPersonAPIStorageCommand { get; set; }
         public ICommand DeletePersonAPIStorageCommand { get; set; }
-
         public ICommand ViewContactsCommand { get; set; }
 
 
@@ -195,9 +197,9 @@ namespace GTIApp.ViewModel
         private HomeViewModel()
         {
             lstMenu = MenuModel.GetMenu();
-            CurrentPersonAPI = new PersonAPI();
+            CurrentPersonAPI = new PersonAPI();            
             LoadContacts();
-
+            
 
             EnterMenuOptionCommand = new Command<int>(EnterMenuOption);
             EnterEditPersonAPIStorageCommand = new Command<string>(EnterEditPersonAPIStorage);
@@ -212,8 +214,9 @@ namespace GTIApp.ViewModel
             switch (id)
             {
                 case 1:
+                    
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
-                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new MainPersonView());
+                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new UserView());
 
                     break;
 
@@ -228,10 +231,8 @@ namespace GTIApp.ViewModel
                     break;
 
                 case 4:
-
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new TabbedPageHomeView());
-
                     break;
 
                 default:
@@ -271,6 +272,7 @@ namespace GTIApp.ViewModel
             }
             ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new ContactsView());
         }
+        
 
         public void DeletePersonAPIStorage(string cedula)
         {
@@ -297,8 +299,13 @@ namespace GTIApp.ViewModel
         public void LoadContacts()
         {
             var realmDB = Realm.GetInstance();
-            List<PersonAPI> laListaDeContactos = realmDB.All<PersonAPI>().ToList();
-            lstPersonsAPIStorage.Clear();
+            List<PersonAPI> laListaDeContactos = null;
+            UserModel elUsuarioActual = realmDB.All<UserModel>().FirstOrDefault(b => b.Name.Equals(Settings.UserActive));
+            if (elUsuarioActual.Id!=0)
+            {
+                laListaDeContactos = realmDB.All<PersonAPI>().Where(b => b.IdUser== elUsuarioActual.Id).ToList();
+                lstPersonsAPIStorage.Clear();
+            }           
             foreach (var item in laListaDeContactos)
             {
                 lstPersonsAPIStorage.Add(item);

@@ -24,6 +24,9 @@ namespace GTIApp.Model
         private const string RememberMeKey = "rememberme";
         private static readonly string RememberMeDefault = string.Empty;
 
+        private const string UserActiveKey = "useractive";
+        private static readonly string UserActiveDefault = string.Empty;
+
         private const string LogOutKey = "logout";
         private static readonly int LogOutDefault = 0;
 
@@ -51,6 +54,17 @@ namespace GTIApp.Model
             set
             {
                 AppSettings.AddOrUpdateValue(RememberMeKey, value);
+            }
+        }
+        public static string UserActive
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(UserActiveKey, UserActiveDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(UserActiveKey, value);
             }
         }
         public static int LogOut

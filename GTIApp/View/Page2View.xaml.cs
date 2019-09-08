@@ -8,8 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace GTIApp.View
-{
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+{    
     public partial class Page2View : ContentPage
     {
         public Page2View()

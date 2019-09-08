@@ -1,8 +1,10 @@
 ﻿using GTIApp.Model;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace GTIApp.ViewModel
@@ -33,12 +35,20 @@ namespace GTIApp.ViewModel
 
         public void Init()
         {
-            lstPins = new ObservableCollection<LocationModel>()
+            var realmDB = Realm.GetInstance();
+            UserModel elUsuarioActual = realmDB.All<UserModel>().FirstOrDefault(b => b.Name.Equals(Settings.UserActive));
+            List<LocationModel> laListaDeContactos = realmDB.All<LocationModel>().Where(b => b.idUser == elUsuarioActual.Id).ToList();
+
+            foreach (var item in laListaDeContactos)
             {
-                new LocationModel{ latitud=9.966910,longitud=-84.050057,descripcion="Casa Moravia"},
-                new LocationModel{ latitud=9.9183035,longitud=-84.0399479,descripcion="GTI"}/*,
+
+                lstPins.Add(new LocationModel { latitud = item.latitud, longitud = item.longitud, descripcion = item.descripcion, idUser = elUsuarioActual.Id });
+                /*,
+                new LocationModel{ latitud=9.9183035,longitud=-84.0399479,descripcion="GTI"},
                 new LocationModel{ latitud=10.3536852,longitud=-85.0792742,descripcion="San Miguel de Cañas"}*/
-            };
+                
+            }
+            
         }
         #endregion
 

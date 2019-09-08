@@ -9,8 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace GTIApp.View
-{
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+{    
     public partial class FormPersonView : ContentPage
     {
         public FormPersonView()

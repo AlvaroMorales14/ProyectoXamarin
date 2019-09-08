@@ -8,5 +8,7 @@ namespace GTIApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Pass { get; set; }
+        public string FullName { get; set; }
+        public int Age { get; set; }
     }
 }
