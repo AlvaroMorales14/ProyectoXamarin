@@ -243,12 +243,11 @@ namespace GTIApp.ViewModel
             EnterAddPersonAPICommand = new Command(EnterAddPersonAPI);
             DeletePersonAPICommand = new Command(DeletePerson);
             CurrentPersonAPI = new PersonAPI();
-            Cedula = "504090261";
+            State = false;
             lstTiposClientes.Add(Model.CustomerTypes.Contado.ToString());
             lstTiposClientes.Add(Model.CustomerTypes.Crédito.ToString());
             lstPersonAPI.Clear();
             lstPersonAPIPerson.Clear();
-            Cedula = "";
             DateOfAdmission = DateTimeOffset.Now;
             message = new MessageModel();
         }
@@ -277,7 +276,7 @@ namespace GTIApp.ViewModel
         public void EnterSearchNewPerson()
         {
             //Metodo de la pantalla donde se ingresa la cedula para agregar el contacto
-            //Se agraga a la lista si se obtuvo un resultado
+            //Se agrega a la lista si se obtuvo un resultado
             if (Cedula==null || Cedula.Length==0)
             {
                 message.Title = "Error";
@@ -367,7 +366,7 @@ namespace GTIApp.ViewModel
             {
                 try
                 {
-                    CurrentPersonAPI.DateOfAdmission = DateOfAdmission;
+                    /*CurrentPersonAPI.DateOfAdmission = DateOfAdmission;*/
                     if (cbSexoM)
                     {
                         CurrentPersonAPI.Sex = 1;
@@ -382,6 +381,9 @@ namespace GTIApp.ViewModel
 
                     Insert();
                     HomeViewModel.GetInstance().LoadContacts();
+                    cbSexoM = false;
+                    cbSexoF = false;
+                    State = false;
                     await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                     await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                 }
@@ -408,11 +410,12 @@ namespace GTIApp.ViewModel
             UserModel elUsuarioActual = realmDB.All<UserModel>().FirstOrDefault(b => b.Name.Equals(Settings.UserName));
             if (elContactoAlmacenado == null)
             {
-                realmDB.Write(() =>
+                var realmDB2 = Realm.GetInstance();
+                realmDB2.Write(() =>
                 {
                     CurrentPersonAPI.IdUser = elUsuarioActual.Id;
                     CurrentPersonAPI.DateOfAdmission = DateOfAdmission;
-                    realmDB.Add(CurrentPersonAPI);
+                    realmDB2.Add(CurrentPersonAPI);                    
                 });
             }
             else
@@ -465,13 +468,14 @@ namespace GTIApp.ViewModel
         }
         public void EnterAddPersonAPI()
         {
+            CurrentPersonAPI = null;
             foreach (var item in lstPersonAPIPerson)
             {
                 if (item.Cedula.Equals(Cedula))
                 {
                     foreach (var currentPerson in person.results)
                     {
-                        CurrentPersonAPI.DateOfAdmission = DateTime.Now;
+                        /*CurrentPersonAPI.DateOfAdmission = DateTime.Now;*/
                         CurrentPersonAPI = currentPerson;
                     }
                 }

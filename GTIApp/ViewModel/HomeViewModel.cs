@@ -285,6 +285,15 @@ namespace GTIApp.ViewModel
                 realmDB.Remove(personAPI);
                 trans.Commit();
             }
+            var realmDB2 = Realm.GetInstance();
+            var location = realmDB2.All<LocationModel>().First(b => b.cedula.Equals(cedula));
+
+            // Delete an object with a transaction
+            using (var trans = realmDB2.BeginWrite())
+            {
+                realmDB2.Remove(location);
+                trans.Commit();
+            }
             LoadContacts();
         }
 
@@ -322,6 +331,7 @@ namespace GTIApp.ViewModel
             {
                 CantidadElementos = "Hay " + lstPersonsAPIStorage.Count.ToString() + " contactos";
             }
+            
         }
 
         #endregion
