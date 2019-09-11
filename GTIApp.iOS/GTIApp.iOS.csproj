@@ -70,6 +70,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\Font Awesome 5 Free-Regular-400.otf" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -139,6 +140,9 @@
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>4.1.0.581479</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Plugin.FontIcons">
+      <Version>2.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -148,9 +152,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\accent.jpg" />
+    <BundleResource Include="Resources\xamarin.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\xamarin.png" />
+    <BundleResource Include="Resources\agregarcontacto50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cerrarsesion100.png" />
   </ItemGroup>
 </Project>

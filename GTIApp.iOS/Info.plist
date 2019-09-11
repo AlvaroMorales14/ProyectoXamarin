@@ -34,5 +34,12 @@
     <string>GTIApp</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>UIAppFonts</key>
+<array>
+  <string>fontawesome.ttf</string>
+  <string>foundation-icons.ttf</string>
+  <string>ionicons.ttf</string>
+  <string>themify.ttf</string>
+</array>
 </dict>
 </plist>

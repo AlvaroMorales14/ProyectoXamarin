@@ -10,7 +10,7 @@
             <Image HorizontalOptions="Center" 
                    VerticalOptions="Center"
                    Margin="0,10,0,0"
-                   Source="https://www.krama.es/cmsfiles/image_59_xamarin_logo_3469986972739708859.png"/>
+                   Source="home.png"/>
         </StackLayout>
         <!--Listview Container-->
         <StackLayout Margin="0,30">

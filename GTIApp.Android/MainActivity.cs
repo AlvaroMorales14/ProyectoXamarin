@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using VectorIcon.FormsPlugin.Android;
 
 namespace GTIApp.Droid
 {
@@ -18,6 +19,10 @@ namespace GTIApp.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+
+            VectorIconTabRenderer.TabLayoutResourceID = Resource.Id.sliding_tabs;
+            VectorIconLabelRenderer.Init();                                       
+
             Xamarin.FormsMaps.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
