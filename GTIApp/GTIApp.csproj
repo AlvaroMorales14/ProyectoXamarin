@@ -46,13 +46,13 @@
     <EmbeddedResource Update="View\InformationDivice.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\Page1View.xaml">
+    <EmbeddedResource Update="View\TabbedPage\Page1View.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\Page2View.xaml">
+    <EmbeddedResource Update="View\TabbedPage\Page2View.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\Page3View.xaml">
+    <EmbeddedResource Update="View\TabbedPage\Page3View.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\PersonAPI\FormPersonAPIView.xaml">
@@ -67,7 +67,7 @@
     <EmbeddedResource Update="View\Person\MainPersonView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\RegisterView.xaml">
+    <EmbeddedResource Update="View\Login\RegisterView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\SendEmail.xaml">
@@ -76,7 +76,7 @@
     <EmbeddedResource Update="View\Share.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\TabbedPageHomeView.xaml">
+    <EmbeddedResource Update="View\TabbedPage\TabbedPageHomeView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\UserView.xaml">

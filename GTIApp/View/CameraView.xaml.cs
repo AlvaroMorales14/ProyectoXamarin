@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTIApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace GTIApp.View
         public CameraView()
         {
             InitializeComponent();
+            BindingContext = PersonAPIViewModel.GetInstance();
         }
 
         private async void Camera_Clicked(object sender, EventArgs e)

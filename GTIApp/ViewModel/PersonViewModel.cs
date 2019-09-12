@@ -22,6 +22,7 @@ namespace GTIApp.ViewModel
         public ICommand AddNewPersonCommand { get; set; }
         public ICommand EditPersonCommand { get; set; }
         public ICommand DeletePersonCommand { get; set; }
+
         private PersonModel _CurrentPerson { get; set; }
         public PersonModel CurrentPerson {
 
@@ -59,22 +60,10 @@ namespace GTIApp.ViewModel
         private PersonViewModel()
         {
 
-            /*lstPerson = PersonModel.ObtenerPersonas();
-           CustomerModel person = new CustomerModel();
-            lstPerson = PersonModel.GetAllPersons().Result;
-           foreach (var item in _lstPersonApi)
-            {
-                PersonModel PersonaDelApi = new PersonModel();
-                PersonaDelApi.Id = item.id;
-                PersonaDelApi.Nombre = item.Name;
-                lstPerson.Add(PersonaDelApi);
-            }*/
-
-            
             EnterAddNewPersonCommand = new Command(EnterAddNewPerson);
             AddNewPersonCommand = new Command(AddNewPerson);
             EditPersonCommand = new Command<int>(EditPerson);
-            DeletePersonCommand = new  Command<int>(DeletePerson);
+            DeletePersonCommand = new  Command<int>(DeletePerson);            
             CurrentPerson = new PersonModel();
 
         }
@@ -110,7 +99,7 @@ namespace GTIApp.ViewModel
 
         }
 
-        public void AddNewPerson()
+        public async void AddNewPerson()
         {                      
             //EDITAR
             if (CurrentPerson.Id!=0)
@@ -136,11 +125,11 @@ namespace GTIApp.ViewModel
                 /*lstPerson.Add(CurrentPerson);*/
                 /*CurrentPerson = new PersonModel();*/
 
-                PersonModel.AddPerson(CurrentPerson);
+               await  PersonModel.AddPerson(CurrentPerson);
                 
             }
             CurrentPerson = new PersonModel();
-            ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
+            await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
         }
 
         public void EditPerson(int Id)
@@ -166,7 +155,6 @@ namespace GTIApp.ViewModel
             }
             CurrentPerson = new PersonModel();
         }
-
         public static string FirstCharToUpper(string input)
         {
             switch (input)

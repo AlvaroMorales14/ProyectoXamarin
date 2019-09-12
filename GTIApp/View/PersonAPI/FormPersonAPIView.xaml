@@ -135,7 +135,9 @@
                             BackgroundColor="Transparent"
                             ImageSource="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios11-control-center-camera-icon.png"
                     Command="{Binding AddNewPhotoPersonAPICommand}"/>
-
+                    </StackLayout>
+                    <StackLayout>
+                        <Image x:Name="PhotoImage" Source="{Binding photoUser}"/>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout Orientation="Vertical" VerticalOptions="Center">

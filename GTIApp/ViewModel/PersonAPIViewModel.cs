@@ -26,7 +26,7 @@ namespace GTIApp.ViewModel
         public ICommand AddNewPersonAPICommand { get; set; }
         public ICommand EnterAddPersonAPICommand { get; set; }
         public ICommand DeletePersonAPICommand { get; set; }
-
+        public ICommand AddNewPhotoPersonAPICommand { get; set; }
         public MessageModel message;
 
         PersonAPIModel person;
@@ -231,6 +231,19 @@ namespace GTIApp.ViewModel
 
         }
 
+        private ImageSource _photoUser { get; set; }
+        public ImageSource photoUser
+        {
+            get
+            {
+                return _photoUser;
+            }
+            set
+            {
+                _photoUser = value;
+                OnPropertyChanged("photoUser");
+            }
+        }
         #endregion
 
         #region Singleton
@@ -242,6 +255,7 @@ namespace GTIApp.ViewModel
             AddNewPersonAPICommand = new Command(AddNewPersonAPI);
             EnterAddPersonAPICommand = new Command(EnterAddPersonAPI);
             DeletePersonAPICommand = new Command(DeletePerson);
+            AddNewPhotoPersonAPICommand = new Command(AddNewPhotoPersonAPI);
             CurrentPersonAPI = new PersonAPI();
             State = false;
             lstTiposClientes.Add(Model.CustomerTypes.Contado.ToString());
@@ -493,6 +507,16 @@ namespace GTIApp.ViewModel
             Cedula = "";
         }
 
+        private async void AddNewPhotoPersonAPI()
+        {
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            if (photo != null)
+            {
+                
+                photoUser = ImageSource.FromStream(() => { return photo.GetStream(); });
+            }
+
+        }
         public static string FirstCharToUpper(string input)
         {
             switch (input)
