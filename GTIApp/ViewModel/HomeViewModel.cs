@@ -235,6 +235,18 @@ namespace GTIApp.ViewModel
                     ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new TabbedPageHomeView());
                     break;
 
+                case 5:
+                    ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
+                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new HomeView());
+                    break;
+                case 6:
+                    ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
+                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new CarouselPageView());
+                    break;
+                case 7:
+                    ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
+                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new CameraView());
+                    break;
                 default:
                     break;
             }

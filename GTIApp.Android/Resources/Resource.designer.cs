@@ -7804,7 +7804,10 @@ namespace GTIApp.Droid
 		{
 			
 			// aapt resource value: 0x7f080000
-			public const int xamarin_essentials_fileprovider_file_paths = 2131230720;
+			public const int file_paths = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int xamarin_essentials_fileprovider_file_paths = 2131230721;
 			
 			static Xml()
 			{

@@ -4,9 +4,11 @@
              xmlns:gradients="clr-namespace:gradients"
              BackgroundColor="#FFF"
              x:Class="GTIApp.View.LoginView">
-   <Grid>
+    <Grid>
+        <!--<ActivityIndicator IsRunning="true" Color="Blue" IsVisible="True" />-->
         <ScrollView>
             <StackLayout>
+
                 <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <Label Text="Nombre de usuario" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
                     <Entry  Text="{Binding User}" FontSize="20" TextColor="#555" />
@@ -28,41 +30,14 @@
                 </StackLayout>
             </StackLayout>
         </ScrollView>
-        <ActivityIndicator IsRunning="true" />
     </Grid>
 
     <!--<AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,0.3"
-                     AbsoluteLayout.LayoutFlags="All">
-            <gradients:GradientColorStack StartColor="#0064a4" EndColor="#002536">
-                <Label Text="GTI APP"
-                       TextColor="Blue"/>
+        <StackLayout >
 
-                <Image Source="xamarin.png"
-                       HeightRequest="150"
-                       WidthRequest="150"/>
-            </gradients:GradientColorStack>
+        <ActivityIndicator IsRunning="true" Color="Blue" IsVisible="True" HeightRequest="50" />
+    </StackLayout>
+    -->
 
-        </StackLayout>
-    </AbsoluteLayout>-->
-
-    <!--<AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,0,0.3"
-                     AbsoluteLayout.LayoutFlags="All">
-
-            <gradients:GradientColorStack StartColor="#C2482D" EndColor="#391E18">
-                
-            </gradients:GradientColorStack>
-            <gradients:GradientColorStack StartColor="#0064a4" EndColor="#002536">
-                <Label Text="GTI APP"
-                       TextColor="Blue"/>
-
-                <Image Source="xamarin.png"
-                       HeightRequest="150"
-                       WidthRequest="150"/>
-            </gradients:GradientColorStack>
-
-        </StackLayout>
-    </AbsoluteLayout>-->
 </ContentPage>
 

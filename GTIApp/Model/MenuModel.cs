@@ -19,6 +19,9 @@ namespace GTIApp.Model
                 new MenuModel { Id = 2, Name = "Agregar contacto", Detail = "", Icon = "https://publicdomainvectors.org/photos/hand-glass-stylized-mar-03r.png" },                
                 new MenuModel { Id = 4, Name = "Mapa", Detail = "", Icon = "agregarcontacto50.png" },
                 new MenuModel { Id = 3, Name = "Cerrar Sesión", Detail = "", Icon = "cerrarsesion100.png" },
+                new MenuModel { Id = 5, Name = "Home", Detail = "", Icon = "" },
+                new MenuModel { Id = 6, Name = "Carousel", Detail = "", Icon = "" },
+                new MenuModel { Id = 7, Name = "Camara", Detail = "", Icon = "" },
             };
             
             return lstMenu;

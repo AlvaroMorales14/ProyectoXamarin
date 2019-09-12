@@ -8,9 +8,10 @@
     <Grid>
         <ScrollView>
             <StackLayout>
+                <Label Text="Mi perfil" TextColor="#555" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
                 <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <Label Text="ID" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
-                    <Label  x:Name="Id" FontSize="20" TextColor="Black" />
+                    <Label  x:Name="Id" FontSize="20" TextColor="#555" />
                     <Label Text="Nombre" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
                     <Label  x:Name="FullName" FontSize="20" TextColor="#555" />
                     <Label Text="Edad" TextColor="#555" FontSize="20" FontAttributes="Bold"/>

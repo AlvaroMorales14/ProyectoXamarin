@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:behaviors="clr-namespace:GTIApp.View.Behaviors"
-             mc:Ignorable="d"
+             mc:Ignorable="d"             
              x:Class="GTIApp.View.MapGoogleView">
     <StackLayout>
         <maps:Map x:Name="MapView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">

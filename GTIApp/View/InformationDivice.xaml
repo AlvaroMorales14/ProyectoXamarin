@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GTIApp.View.InformationDivice">
+    <Grid>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Información del Dispositivo"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label Text="Modelo : "
+                           VerticalOptions="Center"
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                    <Label FontSize="20" 
+                           TextColor="#555" 
+                           VerticalOptions="CenterAndExpand"
+                   Text="{Binding modelInformation}" />
+                    <Label Text="Marca : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding manufacturer}" />
+                    <Label Text="Nombre : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding deviceName}" />
+                    <Label Text="Versión : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding versionInformation}" />
+                    <Label Text="Plataforma : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding platform}" />
+                    <Label Text="Idioma : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding idiom}" />
+                    <Label Text="Tipo : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Label FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding deviceType}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

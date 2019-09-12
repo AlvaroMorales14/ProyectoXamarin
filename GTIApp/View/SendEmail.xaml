@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GTIApp.View.SendEmail">
+    <Grid>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Envío de correos"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label Text="Para : "
+                           VerticalOptions="Center"
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"/>
+                    <Entry FontSize="20" 
+                           TextColor="#555" 
+                           VerticalOptions="CenterAndExpand"
+                   Text="{Binding destinatary}" />
+                    <Label Text="Asunto : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Entry FontSize="20" 
+                           TextColor="#555"
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding subject}" />
+                    <Label Text="Cuerpo : "
+                           TextColor="#555" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                    <Entry FontSize="20" 
+                           TextColor="#555"                           
+                           VerticalOptions="CenterAndExpand" 
+                   Text="{Binding body}" />
+                    <StackLayout Padding="30" 
+                                 VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="FillAndExpand">
+                        <Button x:Name="BtnLogin" 
+                                Command="{Binding SendEmailCommad}" 
+                                Text="OK" 
+                                BorderColor="#CB9600" 
+                                BackgroundColor="#4590e6" 
+                                TextColor="White"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

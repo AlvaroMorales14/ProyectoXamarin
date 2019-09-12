@@ -22,7 +22,7 @@
                                    ImageSource="{Binding Icon}"
                                    Command="{Binding Path=BindingContext.EnterMenuOptionCommand, Source={x:Reference MenuPage}}"
                                    CommandParameter="{Binding Id}"
-                                   TextColor="#4590e6"
+                                   TextColor="#4590e6"                                   
                                    DetailColor="Gray"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
