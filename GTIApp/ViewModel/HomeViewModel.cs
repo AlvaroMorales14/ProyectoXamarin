@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using GTIApp.Model;
@@ -185,6 +186,19 @@ namespace GTIApp.ViewModel
             }
 
         }
+        private ImageSource _photoUser { get; set; }
+        public ImageSource photoUser
+        {
+            get
+            {
+                return _photoUser;
+            }
+            set
+            {
+                _photoUser = value;
+                OnPropertyChanged("photoUser");
+            }
+        }
         public ICommand EnterMenuOptionCommand { get; set; }
         public ICommand EnterEditPersonAPIStorageCommand { get; set; }
         public ICommand DeletePersonAPIStorageCommand { get; set; }
@@ -279,6 +293,9 @@ namespace GTIApp.ViewModel
                     }
 
                     DateOfAdmission = CurrentPersonAPI.DateOfAdmission.Date.ToString().Substring(0, 10);
+
+                    byte[] imageAsBytes = (byte[])item.photoBytes;
+                    photoUser = ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
 
                 }
             }

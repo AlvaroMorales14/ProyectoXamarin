@@ -115,24 +115,17 @@
                            VerticalOptions="Center" />
                         <CheckBox x:Name="cboF" Color="#4590e6" CheckedChanged="OnCheckBoxCheckedChanged" HorizontalOptions="FillAndExpand" IsChecked="{Binding cbSexoF, Mode=TwoWay}"/>
                     </StackLayout>
-                    <!--<StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal">
                         <Label 
-                           Text="Tomar fotografía : " 
+                           Text="Foto : " 
                            TextColor="#555" 
                            FontSize="20" 
                            FontAttributes="Bold"
                            VerticalOptions="Center" />
-                        <Button 
-                            TextColor="White"
-                            FontSize="Large"
-                            WidthRequest      ="30"
-                            HeightRequest     ="30"
-                            CornerRadius      ="15"                                
-                            HorizontalOptions ="End"
-                            BackgroundColor="Transparent"
-                            ImageSource="https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios11-control-center-camera-icon.png"
-                    Command="{Binding AddNewPhotoPersonAPICommand}"/>
-                    </StackLayout>-->
+                    </StackLayout>
+                    <StackLayout>
+                        <Image Source="{Binding photoUser}" HeightRequest="300" WidthRequest="300"/>
+                    </StackLayout>
                 </StackLayout>
                 <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
                     <Button Text="Ok" 

@@ -28,8 +28,11 @@ namespace GTIApp.Model
         public int IdUser { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        
+
+        public byte[] photoBytes { get; set; }
+
     }
+
 
     public class PersonAPIListSearch
     {        

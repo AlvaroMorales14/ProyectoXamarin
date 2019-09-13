@@ -1,12 +1,15 @@
-﻿using GTIApp.Model;
+﻿using Android.Graphics;
+using GTIApp.Model;
 using GTIApp.View;
 using GTIApp.View.PersonAPI;
+using Java.IO;
 using Newtonsoft.Json;
 using Realms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -398,6 +401,7 @@ namespace GTIApp.ViewModel
                     cbSexoM = false;
                     cbSexoF = false;
                     State = false;
+                    photoUser = null;
                     await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                     await ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PopAsync();
                 }
@@ -512,10 +516,15 @@ namespace GTIApp.ViewModel
             var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
             if (photo != null)
             {
-                
+              
                 photoUser = ImageSource.FromStream(() => { return photo.GetStream(); });
+               
             }
-
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.GetStream().CopyTo(memoryStream);
+                CurrentPersonAPI.photoBytes = memoryStream.ToArray();
+            }
         }
         public static string FirstCharToUpper(string input)
         {
