@@ -45,5 +45,7 @@
     <string>This app needs access to photos.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app needs access to microphone.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This application wants to access your FaceID scanner</string>
   </dict>
 </plist>

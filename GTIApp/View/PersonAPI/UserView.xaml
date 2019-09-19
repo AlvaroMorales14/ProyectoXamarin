@@ -4,11 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Title="Perfil"
              x:Class="GTIApp.View.UserView">
     <Grid>
         <ScrollView>
             <StackLayout>
-                <Label Text="Mi perfil" TextColor="#555" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
                 <StackLayout Padding="30" Spacing="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <Label Text="ID" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
                     <Label  x:Name="Id" FontSize="20" TextColor="#555" />
@@ -19,8 +19,24 @@
                     <Label Text="Nombre de usuario" TextColor="#555" FontSize="20" FontAttributes="Bold"/>
                     <Label  x:Name="User" FontSize="20" TextColor="#555" />
                 </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Inicios de sesión"></Label>
+                    <ListView x:Name="ListLogins"
+                          IsPullToRefreshEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ImageCell Text="{Binding FechaIngreso}"
+                                   Detail="{Binding TelefonoIngreso}"                                                                   
+                                   TextColor="Black"
+                                   DetailColor="Black">
+                                </ImageCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </StackLayout>
+
         </ScrollView>
-        <ActivityIndicator IsRunning="true" />
+        <!--<ActivityIndicator IsRunning="true" />-->
     </Grid>
 </ContentPage>

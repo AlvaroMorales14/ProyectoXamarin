@@ -5,10 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:GTIApp.View"
              mc:Ignorable="d"
+            Title="Mapa"
              x:Class="GTIApp.View.TabbedPageHomeView">
     <TabbedPage.Children>
-        <pages:MapGoogleView/>
-        <pages:Page2View/>
-        <pages:Page3View/>
+        <pages:MapGoogleView Title="Ubicaciones"/>
+        <pages:Page2View Title="Filtrar"/>
     </TabbedPage.Children>
 </TabbedPage>

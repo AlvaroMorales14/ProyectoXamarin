@@ -45,7 +45,7 @@
                             <ImageCell.ContextActions>
                                 <MenuItem 
                                         Text="Eliminar"
-                                        IsDestructive="True"                                        
+                                        IsDestructive="True"                                    
                                         Command="{Binding Path=BindingContext.DeletePersonAPICommand, Source={x:Reference MainPersonAPIPage}}"
                                         CommandParameter="{Binding Id}">
                                 </MenuItem>

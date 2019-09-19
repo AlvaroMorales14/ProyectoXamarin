@@ -6,6 +6,7 @@ using Android.Content.Res;
 using GTIApp.Model;
 using GTIApp.View;
 using Microsoft.WindowsAzure.MobileServices;
+using Plugin.Fingerprint;
 using Realms;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -150,6 +151,26 @@ namespace GTIApp.ViewModel
                         Settings.UserName = string.Empty;
                         Settings.RememberMe = "false";
                     }
+
+                    //Agregamos el inicio de sesión.
+                    var realmDBLogins = Realm.GetInstance();
+                    var logins = realmDBLogins.All<LoginsModel>().ToList();
+                    int idLogin = 0;
+                    if (logins.Count != 0)
+                    {
+                        idLogin = logins.Max(s => s.Id)+1;
+                    }
+                    LoginsModel login = new LoginsModel();
+                    login.Id = idLogin;
+                    login.IdUser = elNuevoUsuario.Id;
+                    login.User = elNuevoUsuario.Name;
+                    login.TelefonoIngreso = DeviceInfo.Name;
+                    login.FechaIngreso = DateTime.Now;
+
+                    realmDBLogins.Write(() =>
+                    {
+                        realmDBLogins.Add(login);
+                    });
                 }
                 else
                 {
@@ -216,7 +237,8 @@ namespace GTIApp.ViewModel
                     User = string.Empty;
                     Pass = string.Empty;
                     FullName = string.Empty;
-                    Age = 0;
+                    Age = 0;                   
+                                       
                     await App.Current.MainPage.Navigation.PushModalAsync(new LoginView());
                 }
                 else
@@ -233,10 +255,6 @@ namespace GTIApp.ViewModel
         {
             location();
             var realmDB = Realm.GetInstance();
-            /*if (realmDB.All<UserModel>().ToList().Count==0)
-            {
-                Register();
-            }*/
             string elUsuarioRecordado = Settings.UserName;
 
             if (elUsuarioRecordado!=null)

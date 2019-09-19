@@ -8,10 +8,10 @@ using Xamarin.Forms.Maps;
 
 namespace GTIApp.View.Behaviors
 {
-    public class MapBehavior : BindableBehavior<Map>
+    public class SearchMapBehavior : BindableBehavior<Map>
     {
         public static readonly BindableProperty ItemsSourceProperty =
-            BindableProperty.CreateAttached(nameof(ItemsSource), typeof(IEnumerable<LocationModel>), typeof(MapBehavior), null, BindingMode.Default, propertyChanged: ItemsSourceChanged);
+            BindableProperty.CreateAttached(nameof(ItemsSource), typeof(IEnumerable<LocationModel>), typeof(SearchMapBehavior), null, BindingMode.Default, propertyChanged: ItemsSourceChanged);
 
         public IEnumerable<LocationModel> ItemsSource
         {
@@ -21,7 +21,7 @@ namespace GTIApp.View.Behaviors
 
         private static void ItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (!(bindable is MapBehavior behavior)) return;
+            if (!(bindable is SearchMapBehavior behavior)) return;
             behavior.AddPins();
             behavior.PositionMap();
         }

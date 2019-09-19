@@ -9,6 +9,7 @@ using GTIApp.Model;
 using GTIApp.View;
 using GTIApp.View.PersonAPI;
 using Realms;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace GTIApp.ViewModel
@@ -203,7 +204,7 @@ namespace GTIApp.ViewModel
         public ICommand EnterEditPersonAPIStorageCommand { get; set; }
         public ICommand DeletePersonAPIStorageCommand { get; set; }
         public ICommand ViewContactsCommand { get; set; }
-
+        public ICommand PlacePhoneCallCommand { get; set; }
 
         #endregion
 
@@ -219,6 +220,7 @@ namespace GTIApp.ViewModel
             EnterEditPersonAPIStorageCommand = new Command<string>(EnterEditPersonAPIStorage);
             DeletePersonAPIStorageCommand = new Command<string>(DeletePersonAPIStorage);
             ViewContactsCommand = new Command<string>(ViewContacts);
+            PlacePhoneCallCommand = new Command<string>(PlacePhoneCall);
         }
 
         public void EnterMenuOption(int id)
@@ -241,7 +243,7 @@ namespace GTIApp.ViewModel
                 case 3:
                     Settings.LogOut = 1;
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
-                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new LoginView());
+                    Application.Current.MainPage = new LoginView();
                     break;
 
                 case 4:
@@ -251,7 +253,8 @@ namespace GTIApp.ViewModel
 
                 case 5:
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
-                    ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new HomeView());
+                    Application.Current.MainPage = new HomeView();
+
                     break;
                 case 6:
                     ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
@@ -264,6 +267,12 @@ namespace GTIApp.ViewModel
                 default:
                     break;
             }
+        }
+        private async void AbrirLogin()
+        {
+
+            NavigationPage navigation = new NavigationPage();
+            await navigation.PushAsync(new LoginView());
         }
         public void ViewContacts(string cedula)
         {
@@ -301,8 +310,26 @@ namespace GTIApp.ViewModel
             }
             ((MasterDetailPage)App.Current.MainPage).Detail.Navigation.PushAsync(new ContactsView());
         }
-        
 
+        public void PlacePhoneCall(string number)
+        {
+            try
+            {
+                PhoneDialer.Open(number);
+            }
+            catch (ArgumentNullException anEx)
+            {
+                // Number was null or white space
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Phone Dialer is not supported on this device.
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+            }
+        }
         public void DeletePersonAPIStorage(string cedula)
         {
             var realmDB = Realm.GetInstance();

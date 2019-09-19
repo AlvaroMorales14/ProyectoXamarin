@@ -4,12 +4,34 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             x:Name="SearchPersonAPIMAP"
+             xmlns:maps2="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:behaviors="clr-namespace:GTIApp.View.Behaviors"
              x:Class="GTIApp.View.Page2View">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Tabbed 2"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <StackLayout>
+        <StackLayout Padding="30" 
+                     Spacing="2">
+            <Label Text="Cédula" 
+                   TextColor="#555" 
+                   FontSize="20" 
+                   FontAttributes="Bold"/>
+            <Entry  Text="{Binding Cedula}" 
+                    Keyboard="Numeric" 
+                    Placeholder="Ejm:504090261" 
+                    PlaceholderColor="#CCC" 
+                    FontSize="20" 
+                    TextColor="#555"                    
+                    x:Name="Cedula"/>
+            <Button         Text="Buscar"
+                            TextColor="White"
+                            FontSize="Small"                           
+                            CornerRadius="30"                            
+                            HorizontalOptions="End"
+                            BackgroundColor="#4590e6"                            
+                            Clicked="OnButtonSearchClicked"/>
         </StackLayout>
-    </ContentPage.Content>
+        <StackLayout HeightRequest="100" x:Name="StackMap">
+ 
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             Title="Contacto"
              x:Class="GTIApp.View.PersonAPI.ContactsView">
     <Grid>
         <ScrollView>
@@ -127,19 +128,16 @@
                         <Image Source="{Binding photoUser}" HeightRequest="300" WidthRequest="300"/>
                     </StackLayout>
                 </StackLayout>
-                <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
-                    <Button Text="Ok" 
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" >
+                    <Button Text="LLAMAR" 
                             TextColor="White"
-                            FontSize="Large"
-                            WidthRequest      ="60"
-                            HeightRequest     ="60"
-                            CornerRadius      ="30"                                
-                            HorizontalOptions ="End"
-                            BackgroundColor="#4590e6" 
-                            VerticalOptions="End"
-                            Margin="0,0,20,22"
-                    Command="{Binding AddNewPersonAPICommand}"/>
-                </StackLayout>-->
+                            FontSize="Large"                             
+                            HorizontalOptions ="EndAndExpand"
+                            BackgroundColor="Green" 
+                            VerticalOptions="EndAndExpand"
+                            Command="{Binding PlacePhoneCallCommand}"
+                            CommandParameter="{Binding CurrentPersonAPI.TelephoneNumber}"/>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Grid>

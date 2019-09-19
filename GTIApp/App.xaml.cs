@@ -12,6 +12,7 @@ namespace GTIApp
             InitializeComponent();
 
             MainPage = new LoginView();
+            
         }
 
         protected override void OnStart()

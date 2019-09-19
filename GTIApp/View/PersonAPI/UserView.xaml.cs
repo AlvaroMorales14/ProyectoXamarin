@@ -21,6 +21,7 @@ namespace GTIApp.View
             InitializeComponent();
             CurrentUser = new UserModel();
             ViewUser();
+            LoadLogins();
         }
 
         public void ViewUser()
@@ -35,6 +36,17 @@ namespace GTIApp.View
                 Age.Text = elUsuario.Age.ToString();
                 FullName.Text = elUsuario.FullName;
                 
+            }
+        }
+        private void LoadLogins()
+        {
+            var realmDB = Realm.GetInstance();
+            LoginsModel elLogin = realmDB.All<LoginsModel>().FirstOrDefault(b => b.Id== Int32.Parse(Id.Text));
+            if (elLogin != null)
+            {
+                List<LoginsModel> listaDeLogins = new List<LoginsModel>();
+                listaDeLogins.Add(elLogin);
+                ListLogins.ItemsSource = listaDeLogins;
             }
         }
     }

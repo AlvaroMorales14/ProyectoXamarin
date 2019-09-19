@@ -30,6 +30,9 @@ namespace GTIApp.ViewModel
         public ICommand EnterAddPersonAPICommand { get; set; }
         public ICommand DeletePersonAPICommand { get; set; }
         public ICommand AddNewPhotoPersonAPICommand { get; set; }
+
+        public ICommand PlacePhoneCallCommand { get; set; }
+        
         public MessageModel message;
 
         PersonAPIModel person;
@@ -258,7 +261,7 @@ namespace GTIApp.ViewModel
             AddNewPersonAPICommand = new Command(AddNewPersonAPI);
             EnterAddPersonAPICommand = new Command(EnterAddPersonAPI);
             DeletePersonAPICommand = new Command(DeletePerson);
-            AddNewPhotoPersonAPICommand = new Command(AddNewPhotoPersonAPI);
+            AddNewPhotoPersonAPICommand = new Command(AddNewPhotoPersonAPI);            
             CurrentPersonAPI = new PersonAPI();
             State = false;
             lstTiposClientes.Add(Model.CustomerTypes.Contado.ToString());
@@ -535,8 +538,6 @@ namespace GTIApp.ViewModel
                 default: return input.First().ToString().ToUpper() + input.Substring(1);
             }
         }
-
-      
 
         #endregion
 

@@ -8,10 +8,11 @@ using Android.Widget;
 using Android.OS;
 using VectorIcon.FormsPlugin.Android;
 using Plugin.CurrentActivity;
+using Plugin.Fingerprint;
 
 namespace GTIApp.Droid
 {
-    [Activity(Label = "GTIApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "PROYECTO", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -22,8 +23,9 @@ namespace GTIApp.Droid
             base.OnCreate(savedInstanceState);
 
             VectorIconTabRenderer.TabLayoutResourceID = Resource.Id.sliding_tabs;
-            VectorIconLabelRenderer.Init();                                       
+            VectorIconLabelRenderer.Init();
 
+            CrossFingerprint.SetCurrentActivityResolver(() => this);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
